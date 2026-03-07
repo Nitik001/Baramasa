@@ -583,9 +583,8 @@ const Footer = () => {
 export default function App() {
     const [preloaderFinished, setPreloaderFinished] = useState(false);
 
-    // Keep scrolling disabled while preloader is running
+    // 1. Initialize Lenis globally exactly once
     useEffect(() => {
-        // Initialize Lenis
         const lenis = new Lenis({
             duration: 1.2,
             easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -606,11 +605,24 @@ export default function App() {
 
         gsap.ticker.lagSmoothing(0);
 
+        return () => {
+            lenis.destroy();
+            gsap.ticker.remove(lenis.raf);
+        };
+    }, []);
+
+    // 2. Handle Preloader Scroll Lock & Late ScrollTriggers
+    useEffect(() => {
         if (!preloaderFinished) {
             document.body.style.overflow = 'hidden';
-        } else {
-            document.body.style.overflow = '';
+            return;
+        }
 
+        // Unlock scroll
+        document.body.style.overflow = '';
+
+        // Give DOM a frame to update before building ScrollTriggers
+        let ctx = gsap.context(() => {
             // Initialize parallax elements once preloader is done
             gsap.utils.toArray('[data-speed]').forEach(layer => {
                 gsap.to(layer, {
@@ -633,7 +645,6 @@ export default function App() {
                 { trigger: '#location', color: '#1A1A1A' } // Charcoal Ink
             ];
 
-            // Setup a base background color to transition from
             gsap.set('body', { backgroundColor: '#F9F6F0' });
 
             sections.forEach((sec) => {
@@ -645,12 +656,12 @@ export default function App() {
                     onEnterBack: () => gsap.to('body', { backgroundColor: sec.color, duration: 1, ease: 'power2.inOut' })
                 });
             });
-        }
 
-        return () => {
-            lenis.destroy();
-            gsap.ticker.remove(lenis.raf);
-        };
+            // Refresh ScrollTrigger to recalculate everything after un-hiding overflow
+            ScrollTrigger.refresh();
+        });
+
+        return () => ctx.revert();
     }, [preloaderFinished]);
 
     return (
