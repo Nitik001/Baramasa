@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, Suspense, lazy } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Lenis from 'lenis';
@@ -337,6 +337,8 @@ const Hero = ({ isPreloaderFinished }) => {
                     <img
                         src="https://images.unsplash.com/photo-1596797038530-2c107229654b?auto=format&fit=crop&q=80&w=1400"
                         alt="Rustic Indian Thali"
+                        width="1400"
+                        height="933"
                         className="hero-image absolute inset-0 w-full h-full object-cover sepia-[.15] contrast-[.95]"
                     />
                     <div className="absolute inset-0 bg-charcoal/10 mix-blend-multiply rounded-[2.5rem]"></div>
@@ -492,6 +494,9 @@ const Menu = () => {
                                 <img
                                     src={item.image}
                                     alt={item.title}
+                                    loading="lazy"
+                                    width="1000"
+                                    height="667"
                                     className="w-full h-full object-cover scale-110 group-hover:scale-100 transition-transform duration-1000 ease-out sepia-[.15] contrast-[.95]"
                                 />
                                 <div className="absolute inset-0 bg-charcoal/40 group-hover:bg-charcoal/20 transition-colors duration-700"></div>
