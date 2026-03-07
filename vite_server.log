@@ -1,0 +1,14 @@
+
+> baramasa@0.0.0 dev
+> vite
+
+
+  VITE v6.4.1  ready in 77 ms
+
+  ➜  Local:   http://localhost:5173/
+  ➜  Network: use --host to expose
+  ➜  press h + enter to show help
+6:29:34 PM [vite] (client) hmr update /src/App.jsx, /src/index.css
+6:32:20 PM [vite] (client) hmr update /src/App.jsx, /src/index.css
+6:32:41 PM [vite] (client) hmr update /src/App.jsx, /src/index.css
+6:33:03 PM [vite] (client) hmr update /src/App.jsx, /src/index.css
