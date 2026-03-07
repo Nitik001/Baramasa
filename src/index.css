@@ -30,3 +30,10 @@ body::after {
   box-shadow: inset 0 0 150px rgba(26, 26, 26, 0.15);
   mix-blend-mode: multiply;
 }
+
+/* Hide custom cursor on mobile/touch devices */
+@media (hover: none) and (pointer: coarse) {
+  .mix-blend-difference {
+    display: none !important;
+  }
+}

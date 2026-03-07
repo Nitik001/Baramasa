@@ -123,25 +123,28 @@ const Preloader = ({ onComplete }) => {
             gsap.set(titleText.chars, { yPercent: 100, opacity: 0, rotateX: -90 });
             gsap.set('.preloader-subtitle span', { yPercent: 100, opacity: 0 });
 
+            const isMobile = window.innerWidth < 768;
+            const flightDist = isMobile ? 80 : 140;
+
             // Spices flying in towards CENTER
             tl.fromTo('.spice-1',
                 { x: -window.innerWidth / 2, y: -window.innerHeight / 2, rotation: -180, scale: 0.2, opacity: 0, z: 200 },
-                { x: -140, y: -120, rotation: 45, scale: 1, z: 0, opacity: 1, duration: 2, ease: 'expo.out' },
+                { x: -flightDist, y: -flightDist + 20, rotation: 45, scale: 1, z: 0, opacity: 1, duration: 2, ease: 'expo.out' },
                 0.1
             )
                 .fromTo('.spice-2',
                     { x: window.innerWidth / 2, y: -window.innerHeight / 2, rotation: 180, scale: 0.2, opacity: 0, z: 300 },
-                    { x: 160, y: -100, rotation: -30, scale: 1, z: 0, opacity: 1, duration: 2, ease: 'expo.out' },
+                    { x: flightDist + 20, y: -flightDist + 40, rotation: -30, scale: 1, z: 0, opacity: 1, duration: 2, ease: 'expo.out' },
                     0.2
                 )
                 .fromTo('.spice-3',
                     { x: -window.innerWidth / 2, y: window.innerHeight / 2, rotation: -90, scale: 0.2, opacity: 0, z: 100 },
-                    { x: -120, y: 140, rotation: 60, scale: 1, z: 0, opacity: 1, duration: 2, ease: 'expo.out' },
+                    { x: -flightDist + 20, y: flightDist, rotation: 60, scale: 1, z: 0, opacity: 1, duration: 2, ease: 'expo.out' },
                     0.3
                 )
                 .fromTo('.spice-4',
                     { x: window.innerWidth / 2, y: window.innerHeight / 2, rotation: 90, scale: 0.2, opacity: 0, z: 400 },
-                    { x: 140, y: 120, rotation: -45, scale: 1, z: 0, opacity: 1, duration: 2, ease: 'expo.out' },
+                    { x: flightDist, y: flightDist - 20, rotation: -45, scale: 1, z: 0, opacity: 1, duration: 2, ease: 'expo.out' },
                     0.4
                 );
 
@@ -229,10 +232,10 @@ const Preloader = ({ onComplete }) => {
             <img src="/spices/cardamom_isolated_1772801626708.png" className="spice-item spice-4 absolute top-1/2 left-1/2 w-24 h-24 md:w-32 md:h-32 object-contain mix-blend-multiply pointer-events-none" alt="" />
 
             <div className="preloader-logo relative z-10 flex flex-col items-center text-center mt-[-30px]">
-                <h1 className="preloader-title font-display font-semibold text-6xl md:text-8xl lg:text-[7rem] text-charcoal tracking-wide mb-2 overflow-hidden">
+                <h1 className="preloader-title font-display font-semibold text-5xl md:text-8xl lg:text-[7rem] text-charcoal tracking-wide mb-2 overflow-hidden">
                     <span className="inline-block relative">Baramasa</span>
                 </h1>
-                <p className="preloader-subtitle font-heritage italic text-xl md:text-2xl text-terracotta tracking-widest overflow-hidden">
+                <p className="preloader-subtitle font-heritage italic text-lg md:text-2xl text-terracotta tracking-widest overflow-hidden">
                     <span className="inline-block">12 months of flavour.</span>
                 </p>
             </div>
@@ -319,11 +322,11 @@ const Hero = ({ isPreloaderFinished }) => {
                     <p className="hero-subtitle-split font-modern uppercase tracking-widest text-olive text-sm md:text-base font-semibold mb-6 lg:mb-8">
                         Dehradun, Uttarakhand
                     </p>
-                    <div className="flex flex-col gap-2 md:gap-4 mb-8" style={{ perspective: '1000px' }}>
-                        <h1 className="hero-title-split font-display text-5xl md:text-7xl lg:text-8xl text-charcoal leading-none">
+                    <div className="flex flex-col gap-2 md:gap-4 mb-4 lg:mb-8" style={{ perspective: '1000px' }}>
+                        <h1 className="hero-title-split font-display text-4xl md:text-7xl lg:text-8xl text-charcoal leading-none">
                             12 months of
                         </h1>
-                        <h1 className="hero-title-split font-heritage italic font-bold text-6xl md:text-[6.5rem] lg:text-[8rem] text-terracotta leading-none lg:-ml-2 pb-2">
+                        <h1 className="hero-title-split font-heritage italic font-bold text-5xl md:text-[6.5rem] lg:text-[8rem] text-terracotta leading-none lg:-ml-2 pb-2">
                             flavour.
                         </h1>
                     </div>
@@ -376,10 +379,10 @@ const Philosophy = () => {
                 <p className="phil-text font-modern text-parchment/80 uppercase tracking-widest text-sm mb-6 lg:mb-10 font-semibold">
                     Most kitchens follow recipes.
                 </p>
-                <h2 className="phil-text font-heritage italic font-bold text-5xl md:text-7xl lg:text-8xl text-gold mb-12 lg:mb-16 leading-[1.1] pb-2">
+                <h2 className="phil-text font-heritage italic font-bold text-4xl md:text-7xl lg:text-8xl text-gold mb-8 lg:mb-16 leading-[1.1] pb-2">
                     We follow the seasons.
                 </h2>
-                <p className="phil-text font-modern text-parchment/90 text-lg md:text-xl max-w-2xl leading-relaxed">
+                <p className="phil-text font-modern text-parchment/90 text-base md:text-xl max-w-2xl leading-relaxed">
                     Rooted in the Himalayan foothills of Dehradun, Baramasa honors the local harvest.
                     Gather as a family around our hearth to celebrate timeless traditions, where every
                     dish reflects the poetry of the changing calendar.
@@ -487,7 +490,7 @@ const Menu = () => {
                             ref={cardRef}
                             onMouseMove={handleMouseMove}
                             onMouseLeave={handleMouseLeave}
-                            className="menu-card magnetic-card group relative h-[50vh] md:h-[60vh] w-[80vw] md:w-[50vw] lg:w-[40vw] max-w-[600px] shrink-0 rounded-3xl overflow-hidden border border-gold/30 bg-parchment cursor-none shadow-2xl"
+                            className="menu-card magnetic-card group relative h-[50vh] md:h-[60vh] w-[85vw] md:w-[50vw] lg:w-[40vw] max-w-[600px] shrink-0 rounded-[2rem] md:rounded-3xl overflow-hidden border border-gold/30 bg-parchment cursor-none shadow-2xl"
                             style={{ transformStyle: 'preserve-3d' }}
                         >
                             <div className="absolute inset-0 z-0">
@@ -524,16 +527,16 @@ const Footer = () => {
         <footer id="location" className="w-full text-parchment px-6 py-24 lg:py-32 rounded-t-[3rem] lg:rounded-t-[4rem] relative overflow-hidden">
             <div className="max-w-7xl mx-auto flex flex-col items-center text-center relative z-10">
                 {/* Infinite Marquee */}
-                <div className="w-[200vw] overflow-hidden whitespace-nowrap mb-16 opacity-10 pointer-events-none -ml-[50vw]">
-                    <h1 className="font-display text-[10vw] leading-none inline-block origin-left animate-[marquee_20s_linear_infinite]">
+                <div className="w-[200vw] overflow-hidden whitespace-nowrap mb-12 opacity-10 pointer-events-none -ml-[50vw]">
+                    <h1 className="font-display text-[15vw] md:text-[10vw] leading-none inline-block origin-left animate-[marquee_20s_linear_infinite]">
                         12 MONTHS OF FLAVOUR • SENSORY HERITAGE • MOUNTAIN ROOTS •
                     </h1>
-                    <h1 className="font-display text-[10vw] leading-none inline-block origin-left animate-[marquee_20s_linear_infinite]">
+                    <h1 className="font-display text-[15vw] md:text-[10vw] leading-none inline-block origin-left animate-[marquee_20s_linear_infinite]">
                         12 MONTHS OF FLAVOUR • SENSORY HERITAGE • MOUNTAIN ROOTS •
                     </h1>
                 </div>
 
-                <h2 className="font-heritage italic text-5xl md:text-7xl lg:text-8xl mb-12">
+                <h2 className="font-heritage italic text-4xl md:text-7xl lg:text-8xl mb-8 md:mb-12 px-4">
                     Save your seat at the table.
                 </h2>
                 <Button className="bg-terracotta text-parchment text-lg px-10 py-4 mb-24">
