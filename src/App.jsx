@@ -3,7 +3,7 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Lenis from 'lenis';
 import SplitType from 'split-type';
-import { MapPin, Clock, Phone } from 'lucide-react';
+import { MapPin, Clock, Phone, Mountain, Utensils } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -87,21 +87,26 @@ const Navbar = () => {
 
     return (
         <nav
-            className={`fixed top-4 left-1/2 -translate-x-1/2 w-[90%] z-40 transition-all duration-500 rounded-full flex items-center justify-between px-6 py-3 ${scrolled
-                ? 'bg-parchment/80 backdrop-blur-md border border-olive/30 shadow-sm'
-                : 'bg-transparent border border-transparent'
+            className={`fixed top-0 left-0 w-full z-40 transition-all duration-500 flex items-center justify-between px-6 md:px-12 py-5 ${scrolled
+                ? 'bg-parchment/95 backdrop-blur-md shadow-sm border-b border-olive/10'
+                : 'bg-gradient-to-b from-black/60 to-transparent'
                 }`}
         >
-            <div className="text-2xl font-display font-semibold tracking-wide text-charcoal">
+            <div className={`flex items-center gap-2 text-2xl font-display font-semibold tracking-wide transition-colors duration-300 ${scrolled ? 'text-charcoal' : 'text-parchment'}`}>
+                <div className="flex items-center -mt-1">
+                    <Mountain className="w-6 h-6 -mr-1" />
+                    <Utensils className="w-4 h-4" />
+                </div>
                 Baramasa
             </div>
-            <div className="hidden md:flex items-center gap-8 font-modern text-sm tracking-widest uppercase text-charcoal">
-                <a href="#story" className="hover:text-terracotta transition-colors duration-300">Our Story</a>
-                <a href="#menu" className="hover:text-terracotta transition-colors duration-300">The 12 Months</a>
-                <a href="#location" className="hover:text-terracotta transition-colors duration-300">Location</a>
+            <div className={`hidden md:flex items-center gap-8 font-modern text-sm tracking-widest font-semibold uppercase transition-colors duration-300 ${scrolled ? 'text-charcoal' : 'text-parchment'}`}>
+                <a href="#" className="hover:text-terracotta transition-colors duration-300">Home</a>
+                <a href="#menu" className="hover:text-terracotta transition-colors duration-300">Menu</a>
+                <a href="#location" className="hover:text-terracotta transition-colors duration-300">Reservations</a>
+                <a href="#story" className="hover:text-terracotta transition-colors duration-300">About Us</a>
             </div>
-            <Button className="bg-terracotta text-parchment text-sm hidden sm:block">
-                Reserve a Table
+            <Button className="bg-[#C23C34] hover:bg-[#A12E27] text-white text-sm font-semibold hidden sm:block shadow-lg">
+                Book a Table
             </Button>
         </nav>
     );
@@ -251,28 +256,35 @@ const Hero = ({ isPreloaderFinished }) => {
         const ctx = gsap.context(() => {
             if (!isPreloaderFinished) return;
 
-            // Split the text into characters and lines
             const titleSplit = new SplitType('.hero-title-split', { types: 'chars' });
             const subtitleSplit = new SplitType('.hero-subtitle-split', { types: 'lines' });
 
-            // Setup initial states
-            gsap.set(titleSplit.chars, { y: 100, opacity: 0, rotateX: -90 });
-            gsap.set(subtitleSplit.lines, { y: 30, opacity: 0 });
-            gsap.set('.hero-image-container', { clipPath: 'inset(100% 0% 0% 0% round 40px)' });
-            gsap.set('.hero-image', { scale: 1.2 });
+            // Fly-through initial state: Scaled up by 2.5x, focused on the bottom middle (the path)
+            // By setting transformOrigin to "bottom center", it looks like we are flying forward from the path.
+            gsap.set('.anim-hero-bg', { scale: 2.5, transformOrigin: '50% 100%' });
 
-            const tl = gsap.timeline({ delay: 0.2 });
+            gsap.set(titleSplit.chars, { y: 40, opacity: 0 });
+            gsap.set(subtitleSplit.lines, { y: 20, opacity: 0 });
+            gsap.set('.hero-btn', { scale: 0.9, opacity: 0 });
+
+            const tl = gsap.timeline({ delay: 0.1 });
+
+            // The Cinematic Fly-through transition
+            tl.to('.anim-hero-bg', {
+                scale: 1,
+                transformOrigin: '50% 50%',
+                duration: 4.5,
+                ease: "power2.inOut" // Smooth acceleration and deceleration for drone-like movement
+            }, 0);
 
             // Animate title characters
             tl.to(titleSplit.chars, {
                 y: 0,
                 opacity: 1,
-                rotateX: 0,
-                duration: 1.2,
-                stagger: 0.02,
-                ease: 'power4.out',
-                transformOrigin: "bottom center"
-            }, 0);
+                duration: 1,
+                stagger: 0.03,
+                ease: 'power3.out'
+            }, 3.0); // start appearing near the end of flythrough
 
             // Animate subtitle lines
             tl.to(subtitleSplit.lines, {
@@ -281,25 +293,19 @@ const Hero = ({ isPreloaderFinished }) => {
                 duration: 1,
                 stagger: 0.1,
                 ease: 'power3.out'
-            }, 0.5);
+            }, 3.4);
 
-            // Animate image clip-path reveal
-            tl.to('.hero-image-container', {
-                clipPath: 'inset(0% 0% 0% 0% round 40px)',
-                duration: 1.8,
-                ease: 'power3.inOut'
-            }, 0.2);
-
-            // Animate image parallax scale down
-            tl.to('.hero-image', {
-                scale: 1.0,
-                duration: 3,
-                ease: 'power2.out'
-            }, 0.2);
+            // Animate Button
+            tl.to('.hero-btn', {
+                scale: 1,
+                opacity: 1,
+                duration: 0.8,
+                ease: 'back.out(1.7)'
+            }, 3.7);
 
             // Optional: Parallax on scroll for hero image
-            gsap.to('.hero-image', {
-                yPercent: 20,
+            gsap.to('.anim-hero-bg', {
+                yPercent: 15,
                 ease: "none",
                 scrollTrigger: {
                     trigger: container.current,
@@ -315,37 +321,25 @@ const Hero = ({ isPreloaderFinished }) => {
     }, [isPreloaderFinished]);
 
     return (
-        <section ref={container} className="relative w-full h-[100dvh] flex items-center justify-center px-6 lg:px-12 pt-20">
-            <div className="w-full max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-12 lg:gap-8 h-full">
-                {/* Left Side: Text */}
-                <div className="flex-1 w-full order-2 lg:order-1 flex flex-col justify-center z-10 lg:pr-10">
-                    <p className="hero-subtitle-split font-modern uppercase tracking-widest text-olive text-sm md:text-base font-semibold mb-6 lg:mb-8">
-                        Dehradun, Uttarakhand
-                    </p>
-                    <div className="flex flex-col gap-2 md:gap-4 mb-4 lg:mb-8" style={{ perspective: '1000px' }}>
-                        <h1 className="hero-title-split font-display text-4xl md:text-7xl lg:text-8xl text-charcoal leading-none">
-                            12 months of
-                        </h1>
-                        <h1 className="hero-title-split font-heritage italic font-bold text-5xl md:text-[6.5rem] lg:text-[8rem] text-terracotta leading-none lg:-ml-2 pb-2">
-                            flavour.
-                        </h1>
-                    </div>
-                    <p className="hero-subtitle-split font-modern text-charcoal/80 text-lg max-w-md leading-relaxed">
-                        A premium, modern-heritage dining experience celebrating seasonal Indian cuisine, mountain roots, and the joy of gathering.
-                    </p>
-                </div>
+        <section ref={container} className="relative w-full h-[100dvh] overflow-hidden flex items-end justify-center pb-20 md:pb-28">
+            {/* Background Image with flythrough animation target */}
+            <div className="absolute inset-0 z-0 bg-charcoal pointer-events-none">
+                <div className="anim-hero-bg absolute inset-0 w-full h-full bg-[url('/himalaya_hero.png')] bg-cover bg-center bg-no-repeat"></div>
+                {/* Gradient overlay so the text remains readable over the landscape */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-black/10 z-10"></div>
+            </div>
 
-                {/* Right Side: Image */}
-                <div className="hero-image-container flex-1 w-full h-[50vh] lg:h-[80vh] order-1 lg:order-2 overflow-hidden relative mt-10 lg:mt-0">
-                    <img
-                        src="https://images.unsplash.com/photo-1596797038530-2c107229654b?auto=format&fit=crop&q=80&w=1400"
-                        alt="Rustic Indian Thali"
-                        width="1400"
-                        height="933"
-                        className="hero-image absolute inset-0 w-full h-full object-cover sepia-[.15] contrast-[.95]"
-                    />
-                    <div className="absolute inset-0 bg-charcoal/10 mix-blend-multiply rounded-[2.5rem]"></div>
-                </div>
+            {/* Overlay Text */}
+            <div className="relative z-20 w-full max-w-4xl mx-auto flex flex-col items-center text-center px-6">
+                <h1 className="hero-title-split font-display font-semibold tracking-wide text-5xl md:text-6xl lg:text-7xl text-parchment leading-[1.1] mb-6 drop-shadow-2xl">
+                    Dine Above the Foothills,<br />Beneath the Peaks
+                </h1>
+                <p className="hero-subtitle-split font-modern text-parchment/90 text-sm md:text-lg max-w-2xl leading-relaxed mb-10 drop-shadow-md font-medium">
+                    Authentic Himalayan cuisine, nestled between Shivalik charm and Middle Himalaya grandeur.
+                </p>
+                <a href="#menu" className="hero-btn bg-parchment text-[#443C30] hover:bg-gold transition-colors text-sm font-modern font-bold uppercase tracking-widest px-8 md:px-10 py-4 rounded-xl shadow-[0_4px_20px_rgba(0,0,0,0.3)] inline-block">
+                    Explore Our Menu
+                </a>
             </div>
         </section>
     );
