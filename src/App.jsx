@@ -397,25 +397,14 @@ const Menu = () => {
     const container = useRef(null);
     const trackRef = useRef(null);
 
-    const menuItems = [
-        {
-            id: 1,
-            title: "The Signature Doon Thali",
-            desc: "A hearty tribute to our roots. Bringing together local grains, wild greens, and mountain spices.",
-            image: "https://images.unsplash.com/photo-1628294895950-980562beecfa?auto=format&fit=crop&q=80&w=1000"
-        },
-        {
-            id: 2,
-            title: "Charcoal-Smoked Dal",
-            desc: "Simmered overnight on a slow wood fire. Rich, earthy, and deeply comforting.",
-            image: "https://images.unsplash.com/photo-1546833999-b9f581a1996d?auto=format&fit=crop&q=80&w=1000"
-        },
-        {
-            id: 3,
-            title: "The Evergreen Swaad",
-            desc: "A dish that changes with the calendar. Reflecting the valley's current harvest.",
-            image: "https://images.unsplash.com/photo-1585937421612-70a008356fbe?auto=format&fit=crop&q=80&w=1000"
-        }
+    const menuPages = [
+        { id: 1, image: "/menu-pages/page-01.jpg" },
+        { id: 2, image: "/menu-pages/page-02.jpg" },
+        { id: 3, image: "/menu-pages/page-03.jpg" },
+        { id: 4, image: "/menu-pages/page-04.jpg" },
+        { id: 5, image: "/menu-pages/page-05.jpg" },
+        { id: 6, image: "/menu-pages/page-06.jpg" },
+        { id: 7, image: "/menu-pages/page-07.jpg" },
     ];
 
     useEffect(() => {
@@ -427,7 +416,7 @@ const Menu = () => {
                 scrollTrigger: {
                     trigger: container.current,
                     start: "top top",
-                    end: "+=200%", // 200% gives plenty of scrolling room
+                    end: "+=300%", // 300% gives more scrolling room for 7 pages
                     scrub: 1,
                     pin: true,
                     invalidateOnRefresh: true
@@ -443,16 +432,29 @@ const Menu = () => {
                 <p className="font-modern uppercase tracking-widest text-olive text-sm font-semibold mb-2">
                     Seasonal Artifacts
                 </p>
-                <h2 className="font-display text-4xl md:text-5xl lg:text-5xl text-charcoal">
-                    The 12 Months
-                </h2>
+                <div className="flex flex-col md:flex-row md:items-end gap-4 md:gap-8">
+                    <h2 className="font-display text-4xl md:text-5xl lg:text-5xl text-charcoal">
+                        The Menu
+                    </h2>
+                    <a
+                        href="/Baramasa.pdf"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 text-olive hover:text-terracotta transition-colors font-modern uppercase tracking-widest text-xs font-semibold group pb-2 md:mb-1"
+                    >
+                        <span className="border-b border-olive/30 group-hover:border-terracotta transition-colors pb-1">View Full PDF</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                        </svg>
+                    </a>
+                </div>
             </div>
 
             <div
                 ref={trackRef}
-                className="flex items-center h-full w-[max-content] px-[10vw] gap-[10vw] lg:gap-[15vw] pt-20"
+                className="flex items-center h-full w-[max-content] px-[10vw] gap-[5vw] pt-20"
             >
-                {menuItems.map((item) => {
+                {menuPages.map((item) => {
                     const cardRef = useRef(null);
 
                     const handleMouseMove = (e) => {
@@ -463,8 +465,8 @@ const Menu = () => {
                         const centerX = rect.width / 2;
                         const centerY = rect.height / 2;
 
-                        const rotateX = ((y - centerY) / centerY) * -15;
-                        const rotateY = ((x - centerX) / centerX) * 15;
+                        const rotateX = ((y - centerY) / centerY) * -5;
+                        const rotateY = ((x - centerX) / centerX) * 5;
 
                         gsap.to(cardRef.current, {
                             rotateX,
@@ -490,29 +492,15 @@ const Menu = () => {
                             ref={cardRef}
                             onMouseMove={handleMouseMove}
                             onMouseLeave={handleMouseLeave}
-                            className="menu-card magnetic-card group relative h-[50vh] md:h-[60vh] w-[85vw] md:w-[50vw] lg:w-[40vw] max-w-[600px] shrink-0 rounded-[2rem] md:rounded-3xl overflow-hidden border border-gold/30 bg-parchment cursor-none shadow-2xl"
+                            className="menu-card magnetic-card group relative h-[70vh] w-[85vw] md:w-[60vw] lg:w-[45vw] max-w-[700px] shrink-0 overflow-hidden cursor-none shadow-2xl"
                             style={{ transformStyle: 'preserve-3d' }}
                         >
-                            <div className="absolute inset-0 z-0">
-                                <img
-                                    src={item.image}
-                                    alt={item.title}
-                                    loading="lazy"
-                                    width="1000"
-                                    height="667"
-                                    className="w-full h-full object-cover scale-110 group-hover:scale-100 transition-transform duration-1000 ease-out sepia-[.15] contrast-[.95]"
-                                />
-                                <div className="absolute inset-0 bg-charcoal/40 group-hover:bg-charcoal/20 transition-colors duration-700"></div>
-                            </div>
-
-                            <div className="relative z-10 flex flex-col justify-end h-full p-8 lg:p-12 text-parchment drop-shadow-lg" style={{ transform: 'translateZ(60px)' }}>
-                                <h3 className="font-heritage italic text-4xl lg:text-5xl mb-4 font-semibold">
-                                    {item.title}
-                                </h3>
-                                <p className="font-modern text-sm lg:text-lg opacity-90 leading-relaxed mb-6 max-w-sm">
-                                    {item.desc}
-                                </p>
-                            </div>
+                            <img
+                                src={item.image}
+                                alt={`Menu Page ${item.id}`}
+                                loading="lazy"
+                                className="w-full h-full object-contain pointer-events-none"
+                            />
                         </div>
                     );
                 })}
