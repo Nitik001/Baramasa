@@ -251,7 +251,7 @@ const Hero = ({ isPreloaderFinished }) => {
 
             // Fly-through initial state: Scaled up by 1.6x (optimized from 2.5x), focused on the bottom middle (the path)
             // By setting transformOrigin to "bottom center", it looks like we are flying forward from the path.
-            gsap.set('.anim-hero-bg', { scale: 1.6, transformOrigin: '50% 100%', force3D: true });
+            gsap.set('.anim-hero-bg', { scale: 1, transformOrigin: '50% 100%', force3D: true });
 
             gsap.set(titleSplit.chars, { y: 40, opacity: 0 });
             gsap.set(subtitleSplit.lines, { y: 20, opacity: 0 });
@@ -260,15 +260,6 @@ const Hero = ({ isPreloaderFinished }) => {
 
             const tl = gsap.timeline({ delay: 0.1 });
 
-            // The Cinematic Fly-through transition (Hardware Accelerated & Optimized Scale)
-            tl.to('.anim-hero-bg', {
-                scale: 1,
-                transformOrigin: '50% 50%',
-                duration: 4.0, // slightly faster load
-                ease: "power2.inOut", // Smooth acceleration and deceleration for drone-like movement
-                force3D: true
-            }, 0);
-
             // Animate title characters
             tl.to(titleSplit.chars, {
                 y: 0,
@@ -276,7 +267,7 @@ const Hero = ({ isPreloaderFinished }) => {
                 duration: 1,
                 stagger: 0.03,
                 ease: 'power3.out'
-            }, 2.5); // start appearing nearer the end of flythrough
+            }, 0); // start appearing immediately after preloader finish
 
             // Animate subtitle lines
             tl.to(subtitleSplit.lines, {
@@ -285,7 +276,7 @@ const Hero = ({ isPreloaderFinished }) => {
                 duration: 1,
                 stagger: 0.1,
                 ease: 'power3.out'
-            }, 2.9);
+            }, 0.5);
 
             // Animate Button
             tl.to('.hero-btn', {
@@ -293,7 +284,7 @@ const Hero = ({ isPreloaderFinished }) => {
                 opacity: 1,
                 duration: 0.8,
                 ease: 'back.out(1.7)'
-            }, 3.2);
+            }, 0.8);
 
             // Animate Bottom Bar
             tl.to('.hero-bottom-bar', {
@@ -301,7 +292,7 @@ const Hero = ({ isPreloaderFinished }) => {
                 opacity: 1,
                 duration: 1,
                 ease: 'power3.out'
-            }, 3.5);
+            }, 1.1);
 
             // Optional: Parallax on scroll for hero image
             gsap.to('.anim-hero-bg', {
