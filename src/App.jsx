@@ -77,23 +77,23 @@ const Button = ({ children, className = "", onClick }) => {
 const Navbar = () => {
     return (
         <nav
-            className="fixed top-0 left-0 w-full z-40 bg-[#F5F2EB] shadow-sm border-b border-[#D8D0C1] flex items-center justify-between px-6 md:px-12 py-4"
+            className="fixed top-0 left-0 w-full z-40 bg-gradient-to-b from-[#1A1814]/80 to-transparent flex items-center justify-between px-6 md:px-12 py-4"
         >
-            <div className="flex items-center gap-2 text-2xl font-display font-semibold tracking-wide text-[#3C2D23]">
+            <div className="flex items-center gap-2 text-2xl font-display font-semibold tracking-wide text-[#F9F6F0]">
                 <div className="flex items-center -mt-1">
-                    <Mountain className="w-6 h-6 -mr-1" />
-                    <Utensils className="w-4 h-4" />
+                    <Mountain className="w-6 h-6 -mr-1 text-[#F9F6F0]" />
+                    <Utensils className="w-4 h-4 text-[#F9F6F0]" />
                 </div>
                 Baramasa
             </div>
-            <div className="hidden md:flex items-center gap-8 font-modern text-[15px] font-medium text-[#3C2D23]">
-                <a href="#" className="relative text-terracotta transition-colors duration-300 group">
+            <div className="hidden md:flex items-center gap-8 font-modern text-[15px] font-medium text-[#F9F6F0]">
+                <a href="#" className="relative text-[#CB4335] transition-colors duration-300 group">
                     Home
-                    <span className="absolute -bottom-1 left-0 w-full h-[2px] bg-terracotta"></span>
+                    <span className="absolute -bottom-1 left-0 w-full h-[2px] bg-[#CB4335]"></span>
                 </a>
-                <a href="#menu" className="hover:text-terracotta transition-colors duration-300">Menu</a>
-                <a href="#location" className="hover:text-terracotta transition-colors duration-300">Reservations</a>
-                <a href="#story" className="hover:text-terracotta transition-colors duration-300">About Us</a>
+                <a href="#menu" className="hover:text-[#CB4335] transition-colors duration-300">Menu</a>
+                <a href="#location" className="hover:text-[#CB4335] transition-colors duration-300">Reservations</a>
+                <a href="#story" className="hover:text-[#CB4335] transition-colors duration-300">About Us</a>
             </div>
             <button className="bg-[#CB4335] hover:bg-[#B03A2E] text-white text-[15px] font-medium px-6 py-2.5 rounded-md transition-colors shadow-sm hidden sm:block">
                 Book a Table
