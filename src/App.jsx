@@ -87,13 +87,13 @@ const Navbar = () => {
                 Baramasa
             </div>
             <div className="hidden md:flex items-center gap-8 font-modern text-[15px] font-medium text-[#F9F6F0]">
-                <a href="#" className="relative text-[#CB4335] transition-colors duration-300 group">
+                <a href="#" className="relative text-white transition-colors duration-300 group">
                     Home
-                    <span className="absolute -bottom-1 left-0 w-full h-[2px] bg-[#CB4335]"></span>
+                    <span className="absolute -bottom-1 left-0 w-full h-[2px] bg-white"></span>
                 </a>
-                <a href="#menu" className="hover:text-[#CB4335] transition-colors duration-300">Menu</a>
-                <a href="#location" className="hover:text-[#CB4335] transition-colors duration-300">Reservations</a>
-                <a href="#story" className="hover:text-[#CB4335] transition-colors duration-300">About Us</a>
+                <a href="#menu" className="text-[#F9F6F0]/90 hover:text-white transition-colors duration-300">Menu</a>
+                <a href="#location" className="text-[#F9F6F0]/90 hover:text-white transition-colors duration-300">Reservations</a>
+                <a href="#story" className="text-[#F9F6F0]/90 hover:text-white transition-colors duration-300">About Us</a>
             </div>
             <button className="bg-[#CB4335] hover:bg-[#B03A2E] text-white text-[15px] font-medium px-6 py-2.5 rounded-md transition-colors shadow-sm hidden sm:block">
                 Book a Table
@@ -322,13 +322,13 @@ const Hero = ({ isPreloaderFinished }) => {
 
             {/* Overlay Text aligned bottom center */}
             <div className="relative z-20 w-full max-w-4xl mx-auto flex flex-col items-center text-center px-6">
-                <h1 className="hero-title-split font-display font-semibold tracking-wide text-[2.5rem] md:text-5xl lg:text-[3.5rem] text-[#F9F6F0] leading-[1.1] mb-4">
+                <h1 className="hero-title-split font-display font-semibold tracking-wide text-[2.5rem] md:text-5xl lg:text-[4.2rem] text-[#F9F6F0] leading-[1.1] mb-5">
                     Dine Above the Foothills,<br />Beneath the Peaks
                 </h1>
-                <p className="hero-subtitle-split font-modern text-[#F9F6F0]/90 text-sm md:text-[17px] max-w-lg leading-relaxed mb-6 font-medium">
+                <p className="hero-subtitle-split font-modern text-[#F9F6F0]/90 text-base md:text-[19px] max-w-2xl leading-relaxed mb-8 font-medium">
                     Authentic Himalayan cuisine, nestled between Shivalik charm and Middle Himalaya grandeur.
                 </p>
-                <a href="#menu" className="hero-btn bg-[#F0EAD6] text-[#3C2D23] hover:bg-[#E8DFBF] transition-colors text-[15px] font-modern font-bold px-8 py-3 rounded-md shadow-lg inline-block">
+                <a href="#menu" className="hero-btn bg-[#F0EAD6] text-[#3C2D23] hover:bg-[#E8DFBF] transition-colors text-[16px] font-modern font-bold px-10 py-3.5 rounded-md shadow-lg inline-block">
                     Explore Our Menu
                 </a>
             </div>
@@ -351,7 +351,7 @@ const Hero = ({ isPreloaderFinished }) => {
                 </div>
                 <div className="flex items-center gap-6">
                     <span className="hidden sm:inline">Contact info</span>
-                    <span>baramasa.in</span>
+                    <span>prrrestaurants.com</span>
                 </div>
             </div>
         </section>
