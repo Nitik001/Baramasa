@@ -562,7 +562,7 @@ const Footer = () => {
                         <div className="flex flex-col gap-4 opacity-80 font-modern text-sm">
                             <div className="flex items-center gap-4 md:justify-end max-w-max transition-colors cursor-pointer group">
                                 <Phone className="w-4 h-4 md:hidden" />
-                                <p className="group-hover:text-terracotta transition-colors duration-300">+91 98765 43210</p>
+                                <p className="group-hover:text-terracotta transition-colors duration-300">+91 96755 08626</p>
                             </div>
                             <div className="flex items-center gap-4 md:justify-end max-w-max transition-colors cursor-pointer group">
                                 <p className="group-hover:text-terracotta transition-colors duration-300">hello@baramasa.in</p>
