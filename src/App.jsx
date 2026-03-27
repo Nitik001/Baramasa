@@ -543,7 +543,7 @@ const Footer = () => {
                         <h4 className="font-modern uppercase tracking-widest text-gold text-sm font-semibold mb-2">Location</h4>
                         <div className="flex items-start gap-4 opacity-80 font-modern text-sm">
                             <MapPin className="w-5 h-5 mt-0.5 text-terracotta" />
-                            <p>123 Forest Hill Road<br />Dehradun, Uttarakhand<br />248001</p>
+                            <p>Mothorowala road, Bangali kothi<br />Dehradun, Uttarakhand-248001</p>
                         </div>
                     </div>
 
