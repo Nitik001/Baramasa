@@ -558,7 +558,7 @@ const Footer = () => {
                             <h4 className="font-modern uppercase tracking-widest text-gold text-sm font-semibold mb-2">Hours</h4>
                             <div className="flex items-start md:justify-center gap-4 opacity-80 font-modern text-sm">
                                 <Clock className="w-5 h-5 mt-0.5 text-terracotta md:hidden" />
-                                <p>Tuesday - Sunday<br />Lunch: 12:00 PM - 3:30 PM<br />Dinner: 7:00 PM - 11:30 PM</p>
+                                <p>Monday - Sunday<br />7:00 AM - 10:00 PM</p>
                             </div>
                         </div>
                     </div>
