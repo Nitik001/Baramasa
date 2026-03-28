@@ -123,28 +123,28 @@ const Preloader = ({ onComplete }) => {
             gsap.set('.preloader-subtitle span', { yPercent: 100, opacity: 0 });
 
             const isMobile = window.innerWidth < 768;
-            const flightDistX = isMobile ? 160 : 320;
-            const flightDistY = isMobile ? 160 : 260;
+            const flightDistX = isMobile ? 120 : 200;
+            const flightDistY = isMobile ? 100 : 160;
 
             // Spices flying in towards CENTER
             tl.fromTo('.spice-1',
-                { x: -window.innerWidth / 2, y: -window.innerHeight / 2, rotation: -180, scale: 0.2, opacity: 0 },
-                { x: -flightDistX, y: -flightDistY, rotation: 45, scale: 1, opacity: 1, duration: 2, ease: 'expo.out' },
+                { x: -window.innerWidth, y: -window.innerHeight, rotation: -180, scale: 0.5, opacity: 0 },
+                { x: -flightDistX, y: -flightDistY, rotation: 45, scale: 1, opacity: 1, duration: 1.8, ease: 'power3.out' },
                 0.1
             )
                 .fromTo('.spice-2',
-                    { x: window.innerWidth / 2, y: -window.innerHeight / 2, rotation: 180, scale: 0.2, opacity: 0 },
-                    { x: flightDistX + 20, y: -flightDistY + 20, rotation: -30, scale: 1, opacity: 1, duration: 2, ease: 'expo.out' },
+                    { x: window.innerWidth, y: -window.innerHeight, rotation: 180, scale: 0.5, opacity: 0 },
+                    { x: flightDistX + 20, y: -flightDistY + 20, rotation: -30, scale: 1, opacity: 1, duration: 1.8, ease: 'power3.out' },
                     0.2
                 )
                 .fromTo('.spice-3',
-                    { x: -window.innerWidth / 2, y: window.innerHeight / 2, rotation: -90, scale: 0.2, opacity: 0 },
-                    { x: -flightDistX + 20, y: flightDistY, rotation: 60, scale: 1, opacity: 1, duration: 2, ease: 'expo.out' },
+                    { x: -window.innerWidth, y: window.innerHeight, rotation: -90, scale: 0.5, opacity: 0 },
+                    { x: -flightDistX + 20, y: flightDistY, rotation: 60, scale: 1, opacity: 1, duration: 1.8, ease: 'power3.out' },
                     0.3
                 )
                 .fromTo('.spice-4',
-                    { x: window.innerWidth / 2, y: window.innerHeight / 2, rotation: 90, scale: 0.2, opacity: 0 },
-                    { x: flightDistX, y: flightDistY - 10, rotation: -45, scale: 1, opacity: 1, duration: 2, ease: 'expo.out' },
+                    { x: window.innerWidth, y: window.innerHeight, rotation: 90, scale: 0.5, opacity: 0 },
+                    { x: flightDistX, y: flightDistY - 10, rotation: -45, scale: 1, opacity: 1, duration: 1.8, ease: 'power3.out' },
                     0.4
                 );
 
