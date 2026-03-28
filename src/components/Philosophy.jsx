@@ -7,30 +7,32 @@ const Philosophy = () => {
     const ornamentRef = useRef(null);
 
     useEffect(() => {
+        const isTouch = window.matchMedia('(pointer: coarse)').matches;
+
         const ctx = gsap.context(() => {
-            // Staggered text reveal
+            // Staggered text reveal — lighter on mobile
             gsap.from('.phil-text', {
                 scrollTrigger: {
                     trigger: container.current,
                     start: "top 75%",
                 },
-                y: 50,
+                y: isTouch ? 20 : 50,
                 opacity: 0,
-                duration: 1.4,
-                stagger: 0.18,
+                duration: isTouch ? 0.8 : 1.4,
+                stagger: isTouch ? 0.1 : 0.18,
                 ease: 'power3.out'
             });
 
-            // Ornament fade + rotate
+            // Ornament fade + rotate — simplified on mobile
             gsap.from(ornamentRef.current, {
                 scrollTrigger: {
                     trigger: container.current,
                     start: "top 80%",
                 },
                 opacity: 0,
-                scale: 0.7,
-                rotation: -20,
-                duration: 1.8,
+                scale: 0.85,
+                rotation: isTouch ? 0 : -20,
+                duration: isTouch ? 0.8 : 1.8,
                 ease: 'power2.out'
             });
 
@@ -41,7 +43,7 @@ const Philosophy = () => {
                     start: "top 75%",
                 },
                 scaleX: 0,
-                duration: 1.2,
+                duration: isTouch ? 0.6 : 1.2,
                 ease: 'power2.inOut'
             });
         }, container);

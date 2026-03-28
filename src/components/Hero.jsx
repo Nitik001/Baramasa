@@ -67,28 +67,32 @@ const Hero = ({ isPreloaderFinished }) => {
                 ease: 'power3.out'
             }, 1.1);
 
-            gsap.to('.anim-hero-bg', {
-                yPercent: 15,
-                ease: "none",
-                force3D: true,
-                scrollTrigger: {
-                    trigger: container.current,
-                    start: "top top",
-                    end: "bottom top",
-                    scrub: true
-                }
-            });
+            // Parallax scroll effects — desktop only (reduces mobile GPU load)
+            const isTouch = typeof window !== 'undefined' && window.matchMedia('(pointer: coarse)').matches;
+            if (!isTouch) {
+                gsap.to('.anim-hero-bg', {
+                    yPercent: 15,
+                    ease: "none",
+                    force3D: true,
+                    scrollTrigger: {
+                        trigger: container.current,
+                        start: "top top",
+                        end: "bottom top",
+                        scrub: true
+                    }
+                });
 
-            gsap.to('.mist-layer', {
-                yPercent: -20,
-                ease: "none",
-                scrollTrigger: {
-                    trigger: container.current,
-                    start: "top top",
-                    end: "bottom top",
-                    scrub: 1
-                }
-            });
+                gsap.to('.mist-layer', {
+                    yPercent: -20,
+                    ease: "none",
+                    scrollTrigger: {
+                        trigger: container.current,
+                        start: "top top",
+                        end: "bottom top",
+                        scrub: 1
+                    }
+                });
+            }
 
         }, container);
 
@@ -102,7 +106,7 @@ const Hero = ({ isPreloaderFinished }) => {
     return (
         <section ref={container} className="relative w-full h-[100dvh] overflow-hidden flex flex-col justify-center">
             <div className="absolute inset-0 z-0 bg-[#E8E1CD] pointer-events-none overflow-hidden">
-                <div className="anim-hero-bg absolute inset-0 w-full h-full bg-[url('/himalaya_hero.png')] bg-cover bg-center bg-no-repeat will-change-transform"></div>
+                <div className="anim-hero-bg absolute inset-0 w-full h-full bg-[url('/himalaya_hero.jpg')] bg-cover bg-center bg-no-repeat will-change-transform"></div>
                 <div className={`absolute inset-0 transition-colors duration-1000 ${timeTheme}`}></div>
             </div>
 
