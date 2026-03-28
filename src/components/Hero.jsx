@@ -106,7 +106,7 @@ const Hero = ({ isPreloaderFinished }) => {
     return (
         <section ref={container} className="relative w-full h-[100dvh] overflow-hidden flex flex-col justify-center">
             <div className="absolute inset-0 z-0 bg-[#E8E1CD] pointer-events-none overflow-hidden">
-                <div className="anim-hero-bg absolute inset-0 w-full h-full bg-[url('/himalaya_hero.jpg')] bg-cover bg-center bg-no-repeat will-change-transform"></div>
+                <div className="anim-hero-bg absolute inset-0 w-full h-full bg-[url('/himalaya_hero.jpg')] bg-cover bg-center bg-no-repeat will-change-transform" style={{ filter: 'brightness(1.18) contrast(1.12) saturate(1.2)' }}></div>
                 <div className={`absolute inset-0 transition-colors duration-1000 ${timeTheme}`}></div>
             </div>
 
@@ -118,11 +118,18 @@ const Hero = ({ isPreloaderFinished }) => {
                 </div>
             </div>
 
-            <div className="relative z-20 w-full max-w-4xl mx-auto flex flex-col items-center text-center px-5 mt-20 md:mt-24">
-                <h1 className="hero-title-split font-display font-semibold tracking-wide text-[2rem] sm:text-[2.5rem] md:text-5xl lg:text-[4.2rem] text-[#F9F6F0] leading-[1.1] mb-4 md:mb-5">
-                    Dine Above the Foothills,<br />Beneath the Peaks
+            <div className="relative z-20 w-full max-w-4xl mx-auto flex flex-col items-center text-center px-5">
+                <h1
+                    className="hero-title-split font-display font-bold tracking-[0.02em] text-[1.75rem] sm:text-[2.5rem] md:text-5xl lg:text-[4.5rem] text-white leading-[1.08] mb-4 md:mb-5"
+                    style={{ textShadow: '0 2px 12px rgba(0,0,0,0.45), 0 4px 40px rgba(0,0,0,0.25)' }}
+                >
+                    <span className="whitespace-nowrap">Dine Above the Foothills,</span><br />
+                    <span className="whitespace-nowrap">Beneath the Peaks</span>
                 </h1>
-                <p className="hero-subtitle-split font-modern text-[#F9F6F0]/90 text-sm sm:text-base md:text-[19px] max-w-xs sm:max-w-sm md:max-w-2xl leading-relaxed mb-7 md:mb-8 font-medium">
+                <p
+                    className="hero-subtitle-split font-modern text-[#F9F6F0] text-sm sm:text-base md:text-[19px] max-w-xs sm:max-w-sm md:max-w-2xl leading-relaxed mb-7 md:mb-8 font-medium"
+                    style={{ textShadow: '0 1px 8px rgba(0,0,0,0.35)' }}
+                >
                     Authentic Himalayan cuisine, nestled between Shivalik charm and Middle Himalaya grandeur.
                 </p>
                 <div className="hero-btn">
