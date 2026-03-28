@@ -155,7 +155,7 @@ const Preloader = ({ onComplete }) => {
                 1.0
             );
 
-            // Logo Title characters emerge dynamically
+            // Logo Title characters emerge dynamically in the middle of the spices
             tl.to(titleText.chars, {
                 yPercent: 0,
                 opacity: 1,
@@ -164,7 +164,7 @@ const Preloader = ({ onComplete }) => {
                 stagger: 0.05,
                 ease: 'power4.out',
                 transformOrigin: "bottom center"
-            }, 1.2);
+            }, 1.5);
 
             // Subtitle emerges
             tl.to('.preloader-subtitle span', {
@@ -172,21 +172,21 @@ const Preloader = ({ onComplete }) => {
                 opacity: 1,
                 duration: 1,
                 ease: 'power3.out'
-            }, 1.6);
+            }, 1.8);
 
-            // Spices settle with heavy bounce
+            // Spices settle with heavy bounce (after text appears)
             tl.to('.spice-item', {
-                y: '+=50',
+                y: '+=30',
                 scale: 0.95,
                 rotation: '+=8',
                 duration: 2.5,
                 ease: 'elastic.out(1, 0.3)',
                 stagger: 0.05
-            }, 1.8);
+            }, 2.4);
 
             // Exit Sequence
-            tl.to('.dust-splash', { opacity: 0, duration: 1 }, 3.5);
-            tl.to('.spice-item', { opacity: 0, scale: 1.2, y: '+=30', duration: 0.8, ease: 'power2.inOut', stagger: 0.05 }, 3.8);
+            tl.to('.dust-splash', { opacity: 0, duration: 1 }, 4.0);
+            tl.to('.spice-item', { opacity: 0, scale: 1.2, y: '+=30', duration: 0.8, ease: 'power2.inOut', stagger: 0.05 }, 4.3);
 
             tl.to(titleText.chars, {
                 yPercent: -100,
@@ -194,14 +194,14 @@ const Preloader = ({ onComplete }) => {
                 duration: 0.6,
                 stagger: 0.02,
                 ease: 'power2.in'
-            }, 4.0);
+            }, 4.5);
 
             tl.to('.preloader-subtitle span', {
                 yPercent: -100,
                 opacity: 0,
                 duration: 0.5,
                 ease: 'power2.in'
-            }, 4.2);
+            }, 4.7);
 
             if (onComplete) {
                 tl.to(container.current, {
@@ -209,7 +209,7 @@ const Preloader = ({ onComplete }) => {
                     duration: 1.2,
                     ease: 'expo.inOut',
                     onComplete
-                }, 4.5);
+                }, 5.0);
             }
 
         }, container);
@@ -229,7 +229,7 @@ const Preloader = ({ onComplete }) => {
             <img src="/spices/star_anise_isolated_1772801555117.png" className="spice-item spice-1 absolute z-0 top-1/2 left-1/2 w-32 h-32 md:w-48 md:h-48 object-contain mix-blend-multiply pointer-events-none" alt="" />
             <img src="/spices/cinnamon_sticks_isolated_1772801570251.png" className="spice-item spice-2 absolute z-0 top-1/2 left-1/2 w-48 h-48 md:w-64 md:h-64 object-contain mix-blend-multiply pointer-events-none" alt="" />
 
-            <div className="preloader-logo relative z-10 flex flex-col items-center text-center mt-[-30px]">
+            <div className="preloader-logo relative z-10 flex flex-col items-center text-center">
                 <h1 className="preloader-title font-display font-semibold text-5xl sm:text-6xl md:text-8xl lg:text-[7rem] text-charcoal tracking-wide mb-2 overflow-hidden drop-shadow-md">
                     <span className="inline-block relative">Baramasa</span>
                 </h1>
@@ -238,8 +238,8 @@ const Preloader = ({ onComplete }) => {
                 </p>
             </div>
 
-            <img src="/spices/chili_isolated_1772801607119.png" className="spice-item spice-3 absolute z-20 top-1/2 left-1/2 w-32 h-32 md:w-48 md:h-48 object-contain mix-blend-multiply pointer-events-none drop-shadow-2xl" alt="" />
-            <img src="/spices/cardamom_isolated_1772801626708.png" className="spice-item spice-4 absolute z-20 top-1/2 left-1/2 w-24 h-24 md:w-32 md:h-32 object-contain mix-blend-multiply pointer-events-none drop-shadow-2xl" alt="" />
+            <img src="/spices/chili_isolated_1772801607119.png" className="spice-item spice-3 absolute z-20 top-1/2 left-1/2 w-32 h-32 md:w-48 md:h-48 object-contain mix-blend-multiply pointer-events-none" alt="" />
+            <img src="/spices/cardamom_isolated_1772801626708.png" className="spice-item spice-4 absolute z-20 top-1/2 left-1/2 w-24 h-24 md:w-32 md:h-32 object-contain mix-blend-multiply pointer-events-none" alt="" />
         </div>
     );
 };
