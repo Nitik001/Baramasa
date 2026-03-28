@@ -11,8 +11,10 @@ gsap.registerPlugin(ScrollTrigger);
 const CustomCursor = () => {
     const cursorRef = useRef(null);
     const textRef = useRef(null);
+    const isTouch = typeof window !== 'undefined' && window.matchMedia('(pointer: coarse)').matches;
 
     useEffect(() => {
+        if (isTouch) return;
         // QuickTo for smooth tracking
         const xTo = gsap.quickTo(cursorRef.current, "x", { duration: 0.15, ease: "power3" });
         const yTo = gsap.quickTo(cursorRef.current, "y", { duration: 0.15, ease: "power3" });
@@ -50,6 +52,8 @@ const CustomCursor = () => {
             });
         };
     }, []);
+
+    if (isTouch) return null;
 
     return (
         <div
@@ -227,10 +231,10 @@ const Preloader = ({ onComplete }) => {
             <img src="/spices/cardamom_isolated_1772801626708.png" className="spice-item spice-4 absolute top-1/2 left-1/2 w-24 h-24 md:w-32 md:h-32 object-contain mix-blend-multiply pointer-events-none" alt="" />
 
             <div className="preloader-logo relative z-10 flex flex-col items-center text-center mt-[-30px]">
-                <h1 className="preloader-title font-display font-semibold text-5xl md:text-8xl lg:text-[7rem] text-charcoal tracking-wide mb-2 overflow-hidden">
+                <h1 className="preloader-title font-display font-semibold text-4xl sm:text-5xl md:text-8xl lg:text-[7rem] text-charcoal tracking-wide mb-2 overflow-hidden">
                     <span className="inline-block relative">Baramasa</span>
                 </h1>
-                <p className="preloader-subtitle font-heritage italic text-lg md:text-2xl text-terracotta tracking-widest overflow-hidden">
+                <p className="preloader-subtitle font-heritage italic text-base sm:text-lg md:text-2xl text-terracotta tracking-widest overflow-hidden">
                     <span className="inline-block">12 months of flavour.</span>
                 </p>
             </div>
@@ -322,7 +326,7 @@ const Hero = ({ isPreloaderFinished }) => {
 
             {/* Overlay Text aligned bottom center */}
             <div className="relative z-20 w-full max-w-4xl mx-auto flex flex-col items-center text-center px-6">
-                <h1 className="hero-title-split font-display font-semibold tracking-wide text-[2.5rem] md:text-5xl lg:text-[4.2rem] text-[#F9F6F0] leading-[1.1] mb-5">
+                <h1 className="hero-title-split font-display font-semibold tracking-wide text-4xl sm:text-[2.5rem] md:text-5xl lg:text-[4.2rem] text-[#F9F6F0] leading-[1.1] mb-5">
                     Dine Above the Foothills,<br />Beneath the Peaks
                 </h1>
                 <p className="hero-subtitle-split font-modern text-[#F9F6F0]/90 text-base md:text-[19px] max-w-2xl leading-relaxed mb-8 font-medium">
@@ -466,6 +470,7 @@ const Menu = () => {
 
                     const handleMouseMove = (e) => {
                         if (!cardRef.current) return;
+                        if (typeof window !== 'undefined' && window.matchMedia('(pointer: coarse)').matches) return;
                         const rect = cardRef.current.getBoundingClientRect();
                         const x = e.clientX - rect.left;
                         const y = e.clientY - rect.top;
@@ -485,6 +490,7 @@ const Menu = () => {
                     };
 
                     const handleMouseLeave = () => {
+                        if (typeof window !== 'undefined' && window.matchMedia('(pointer: coarse)').matches) return;
                         gsap.to(cardRef.current, {
                             rotateX: 0,
                             rotateY: 0,
@@ -523,10 +529,10 @@ const Footer = () => {
             <div className="max-w-7xl mx-auto flex flex-col items-center text-center relative z-10">
                 {/* Infinite Marquee */}
                 <div className="w-[200vw] overflow-hidden whitespace-nowrap mb-12 opacity-10 pointer-events-none -ml-[50vw]">
-                    <h1 className="font-display text-[15vw] md:text-[10vw] leading-none inline-block origin-left animate-[marquee_20s_linear_infinite]">
+                    <h1 className="font-display text-[10vw] md:text-[8vw] leading-none inline-block origin-left animate-[marquee_20s_linear_infinite]">
                         12 MONTHS OF FLAVOUR • SENSORY HERITAGE • MOUNTAIN ROOTS •
                     </h1>
-                    <h1 className="font-display text-[15vw] md:text-[10vw] leading-none inline-block origin-left animate-[marquee_20s_linear_infinite]">
+                    <h1 className="font-display text-[10vw] md:text-[8vw] leading-none inline-block origin-left animate-[marquee_20s_linear_infinite]">
                         12 MONTHS OF FLAVOUR • SENSORY HERITAGE • MOUNTAIN ROOTS •
                     </h1>
                 </div>
@@ -668,7 +674,7 @@ export default function App() {
     }, [preloaderFinished]);
 
     return (
-        <div id="hero" className="w-full mx-auto relative antialiased text-charcoal [cursor:none]">
+        <div id="hero" className="w-full mx-auto relative antialiased text-charcoal md:cursor-none cursor-auto">
             <CustomCursor />
             <div className="pointer-events-none fixed inset-0 z-[40] shadow-[inset_0_0_150px_rgba(26,26,26,0.15)] mix-blend-multiply transition-opacity duration-1000"></div>
 
