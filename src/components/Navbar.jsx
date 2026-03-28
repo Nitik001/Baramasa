@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Mountain, Utensils, Menu as MenuIcon, X } from 'lucide-react';
 import { gsap } from 'gsap';
+import Magnetic from './Magnetic';
 
 const Navbar = () => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -56,9 +57,11 @@ const Navbar = () => {
                 </div>
                 
                 <div className="flex items-center gap-4">
-                    <a href="#location" data-cursor-text="Book" className="bg-[#CB4335] hover:bg-[#B03A2E] text-white text-[15px] font-medium px-6 py-2.5 rounded-md transition-colors shadow-sm hidden sm:block">
-                        Book a Table
-                    </a>
+                    <Magnetic>
+                        <a href="#location" data-cursor-text="Book" className="bg-[#CB4335] hover:bg-[#B03A2E] text-white text-[15px] font-medium px-6 py-2.5 rounded-md transition-colors shadow-sm hidden sm:block">
+                            Book a Table
+                        </a>
+                    </Magnetic>
                     <button className="md:hidden text-[#F9F6F0] p-2" onClick={toggleMenu} aria-label="Toggle Menu">
                         <MenuIcon className="w-6 h-6" />
                     </button>

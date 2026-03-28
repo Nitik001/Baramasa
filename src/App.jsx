@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Lenis from 'lenis';
@@ -15,6 +15,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function App() {
     const [preloaderFinished, setPreloaderFinished] = useState(false);
+    const transitionOverlayRef = useRef(null);
 
     // 1. Initialize Lenis globally exactly once
     useEffect(() => {
@@ -72,21 +73,46 @@ export default function App() {
 
             // Global Body Color Transitions
             const sections = [
-                { trigger: '#hero', color: '#F9F6F0' }, // Parchment
-                { trigger: '#story', color: '#4A5D23' }, // Olive Canopy
-                { trigger: '#menu', color: '#F9F6F0' }, // Parchment
+                { trigger: '#hero', color: '#F9F6F0' },   // Parchment
+                { trigger: '#story', color: '#1E1008' },  // Deep Mulberry
+                { trigger: '#menu', color: '#F9F6F0' },   // Parchment
                 { trigger: '#location', color: '#1A1A1A' } // Charcoal Ink
             ];
 
             gsap.set('body', { backgroundColor: '#F9F6F0' });
+            let currentColor = '#F9F6F0';
 
             sections.forEach((sec) => {
+                const triggerCircleTransition = (targetColor, direction) => {
+                    if (currentColor === targetColor || !transitionOverlayRef.current) return;
+                    
+                    const origin = direction === "down" ? "50% 100%" : "50% 0%";
+                    
+                    // Stop any ongoing transition and snap to the new start
+                    gsap.killTweensOf(transitionOverlayRef.current);
+                    gsap.set(transitionOverlayRef.current, { 
+                        backgroundColor: targetColor, 
+                        clipPath: `circle(0% at ${origin})` 
+                    });
+                    
+                    gsap.to(transitionOverlayRef.current, {
+                        clipPath: `circle(150% at ${origin})`,
+                        duration: 1.2,
+                        ease: "power2.out",
+                        onComplete: () => {
+                            gsap.set('body', { backgroundColor: targetColor });
+                            currentColor = targetColor;
+                            gsap.set(transitionOverlayRef.current, { clipPath: `circle(0% at ${origin})` });
+                        }
+                    });
+                };
+
                 ScrollTrigger.create({
                     trigger: sec.trigger,
-                    start: "top 40%",
-                    end: "bottom 40%",
-                    onEnter: () => gsap.to('body', { backgroundColor: sec.color, duration: 1, ease: 'power2.inOut' }),
-                    onEnterBack: () => gsap.to('body', { backgroundColor: sec.color, duration: 1, ease: 'power2.inOut' })
+                    start: "top 95%",
+                    end: "bottom 5%",
+                    onEnter: () => triggerCircleTransition(sec.color, "down"),
+                    onEnterBack: () => triggerCircleTransition(sec.color, "up")
                 });
             });
 
@@ -99,6 +125,9 @@ export default function App() {
 
     return (
         <div id="hero" className="w-full mx-auto relative antialiased text-charcoal md:cursor-none cursor-auto">
+            {/* The liquid background transition overlay */}
+            <div ref={transitionOverlayRef} className="fixed inset-0 z-[-1] pointer-events-none" style={{ clipPath: 'circle(0% at 50% 50%)' }}></div>
+            
             <CustomCursor />
             <div className="pointer-events-none fixed inset-0 z-[40] shadow-[inset_0_0_150px_rgba(26,26,26,0.15)] mix-blend-multiply transition-opacity duration-1000"></div>
 

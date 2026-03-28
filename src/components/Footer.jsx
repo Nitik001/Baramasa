@@ -1,10 +1,11 @@
 import React from 'react';
 import Button from './Button';
+import Magnetic from './Magnetic';
 import { MapPin, Clock, Phone } from 'lucide-react';
 
 const Footer = () => {
     return (
-        <footer id="location" className="w-full text-parchment px-6 py-24 lg:py-32 rounded-t-[3rem] lg:rounded-t-[4rem] relative overflow-hidden">
+        <footer id="location" className="w-full text-parchment px-5 sm:px-6 py-16 sm:py-24 lg:py-32 rounded-t-[2rem] lg:rounded-t-[4rem] relative overflow-hidden" style={{ backgroundColor: '#1A1A1A' }}>
             <div className="max-w-7xl mx-auto flex flex-col items-center text-center relative z-10">
                 <div className="w-[200vw] overflow-hidden whitespace-nowrap mb-12 opacity-10 pointer-events-none -ml-[50vw]" aria-hidden="true">
                     <h1 className="font-display text-[10vw] md:text-[8vw] leading-none inline-block origin-left animate-[marquee_20s_linear_infinite]">
@@ -15,12 +16,14 @@ const Footer = () => {
                     </h1>
                 </div>
 
-                <h2 className="font-heritage italic text-4xl md:text-7xl lg:text-8xl mb-8 md:mb-12 px-4">
+                <h2 className="font-heritage italic text-3xl sm:text-4xl md:text-7xl lg:text-8xl mb-8 md:mb-12 px-4">
                     Save your seat at the table.
                 </h2>
-                <Button data-cursor-text="Reserve" className="bg-terracotta text-parchment text-lg px-10 py-4 mb-24">
-                    Reserve a Table
-                </Button>
+                <Magnetic>
+                    <Button data-cursor-text="Reserve" className="bg-terracotta text-parchment text-base sm:text-lg px-8 sm:px-10 py-3.5 sm:py-4 mb-16 sm:mb-24 min-h-[52px]">
+                        Reserve a Table
+                    </Button>
+                </Magnetic>
 
                 <div className="w-full grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-8 pt-16 border-t border-parchment/10 text-left">
                     <div className="flex flex-col gap-4">
@@ -58,8 +61,12 @@ const Footer = () => {
                 <div className="w-full mt-24 flex flex-col md:flex-row items-center justify-between opacity-50 font-modern text-xs uppercase tracking-widest">
                     <p>© {new Date().getFullYear()} Baramasa.</p>
                     <div className="flex gap-6 mt-6 md:mt-0">
-                        <a href="https://instagram.com/baramasa.in" target="_blank" rel="noopener noreferrer" className="hover:text-gold transition-colors" data-cursor-text="Connect">Instagram</a>
-                        <a href="https://facebook.com/baramasa.in" target="_blank" rel="noopener noreferrer" className="hover:text-gold transition-colors" data-cursor-text="Connect">Facebook</a>
+                        <Magnetic>
+                            <a href="https://instagram.com/baramasa.in" target="_blank" rel="noopener noreferrer" className="hover:text-gold transition-colors block p-2 -m-2" data-cursor-text="Connect">Instagram</a>
+                        </Magnetic>
+                        <Magnetic>
+                            <a href="https://facebook.com/baramasa.in" target="_blank" rel="noopener noreferrer" className="hover:text-gold transition-colors block p-2 -m-2" data-cursor-text="Connect">Facebook</a>
+                        </Magnetic>
                     </div>
                 </div>
             </div>

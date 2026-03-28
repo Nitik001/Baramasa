@@ -1,9 +1,10 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 
 const Menu = () => {
     const container = useRef(null);
     const trackRef = useRef(null);
+    const [isMobile, setIsMobile] = useState(false);
 
     const menuPages = [
         { id: 1, image: "/menu-pages/page-01.jpg", alt: "Baramasa Menu Front Cover" },
@@ -16,6 +17,15 @@ const Menu = () => {
     ];
 
     useEffect(() => {
+        const checkMobile = () => setIsMobile(window.innerWidth < 768);
+        checkMobile();
+        window.addEventListener('resize', checkMobile);
+        return () => window.removeEventListener('resize', checkMobile);
+    }, []);
+
+    useEffect(() => {
+        if (isMobile || !trackRef.current) return;
+
         const ctx = gsap.context(() => {
             gsap.to(trackRef.current, {
                 x: () => -(trackRef.current.scrollWidth - window.innerWidth) + "px",
@@ -31,10 +41,62 @@ const Menu = () => {
             });
         }, container);
         return () => ctx.revert();
-    }, []);
+    }, [isMobile]);
 
+    // Mobile layout: vertical-scrolling grid
+    if (isMobile) {
+        return (
+            <section id="menu" className="w-full relative" style={{ backgroundColor: '#F9F6F0' }}>
+                <div className="px-5 pt-14 pb-8">
+                    <p className="font-modern uppercase tracking-widest text-olive text-xs font-semibold mb-2">
+                        Seasonal Artifacts
+                    </p>
+                    <div className="flex items-end gap-5">
+                        <h2 className="font-display text-4xl text-charcoal">The Menu</h2>
+                        <a
+                            href="/Baramasa.pdf"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-1 text-olive font-modern uppercase tracking-widest text-xs font-semibold pb-1 border-b border-olive/30"
+                        >
+                            View PDF
+                            <svg xmlns="http://www.w3.org/2000/svg" className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                {/* Touch-scroll horizontal strip on mobile */}
+                <div className="overflow-x-auto flex gap-4 px-5 pb-10 snap-x snap-mandatory scrollbar-hide">
+                    {menuPages.map((item) => (
+                        <div
+                            key={item.id}
+                            className="snap-center shrink-0 w-[82vw] rounded-lg overflow-hidden shadow-lg"
+                        >
+                            <img
+                                src={item.image}
+                                alt={item.alt}
+                                loading="lazy"
+                                className="w-full h-auto object-contain"
+                            />
+                        </div>
+                    ))}
+                </div>
+
+                {/* Soft Dune / Plate Curve Section Divider */}
+                <div className="relative w-full pointer-events-none -mb-[1px]">
+                    <svg viewBox="0 0 1440 100" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-auto text-[#1A1A1A]">
+                        <path d="M0,100 L1440,100 L1440,80 C1100,0 340,150 0,30 Z" fill="currentColor"/>
+                    </svg>
+                </div>
+            </section>
+        );
+    }
+
+    // Desktop layout: horizontal pinned scroll
     return (
-        <section id="menu" ref={container} className="w-full relative h-screen overflow-hidden">
+        <section id="menu" ref={container} className="w-full relative h-screen overflow-hidden" style={{ backgroundColor: '#F9F6F0' }}>
             <div className="absolute top-12 md:top-24 left-6 lg:left-12 z-20">
                 <p className="font-modern uppercase tracking-widest text-olive text-sm font-semibold mb-2">
                     Seasonal Artifacts
@@ -122,6 +184,13 @@ const Menu = () => {
                         </div>
                     );
                 })}
+            </div>
+
+            {/* Soft Dune / Plate Curve Section Divider */}
+            <div className="absolute bottom-[-1px] left-0 w-full z-30 pointer-events-none transition-transform duration-700">
+                <svg viewBox="0 0 1440 100" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-auto text-[#1A1A1A]">
+                    <path d="M0,100 L1440,100 L1440,80 C1100,0 340,150 0,30 Z" fill="currentColor"/>
+                </svg>
             </div>
         </section>
     );
