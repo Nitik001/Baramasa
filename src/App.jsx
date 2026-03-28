@@ -226,8 +226,8 @@ const Preloader = ({ onComplete }) => {
                 }}
             ></div>
 
-            <img src="/spices/star_anise_isolated_1772801555117.png" className="spice-item spice-1 absolute z-0 top-1/2 left-1/2 w-32 h-32 md:w-48 md:h-48 object-contain mix-blend-multiply pointer-events-none" alt="" />
-            <img src="/spices/cinnamon_sticks_isolated_1772801570251.png" className="spice-item spice-2 absolute z-0 top-1/2 left-1/2 w-48 h-48 md:w-64 md:h-64 object-contain mix-blend-multiply pointer-events-none" alt="" />
+            <img src="/spices/star_anise_isolated_1772801555117.png" className="spice-item spice-1 absolute z-0 top-1/2 left-1/2 w-48 h-48 md:w-72 md:h-72 object-contain mix-blend-multiply pointer-events-none" alt="" />
+            <img src="/spices/cinnamon_sticks_isolated_1772801570251.png" className="spice-item spice-2 absolute z-0 top-1/2 left-1/2 w-64 h-64 md:w-96 md:h-96 object-contain mix-blend-multiply pointer-events-none" alt="" />
 
             <div className="preloader-logo relative z-10 flex flex-col items-center text-center">
                 <h1 className="preloader-title font-display font-semibold text-5xl sm:text-6xl md:text-8xl lg:text-[7rem] text-charcoal tracking-wide mb-2 overflow-hidden drop-shadow-md">
@@ -238,8 +238,8 @@ const Preloader = ({ onComplete }) => {
                 </p>
             </div>
 
-            <img src="/spices/chili_isolated_1772801607119.png" className="spice-item spice-3 absolute z-20 top-1/2 left-1/2 w-32 h-32 md:w-48 md:h-48 object-contain mix-blend-multiply pointer-events-none" alt="" />
-            <img src="/spices/cardamom_isolated_1772801626708.png" className="spice-item spice-4 absolute z-20 top-1/2 left-1/2 w-24 h-24 md:w-32 md:h-32 object-contain mix-blend-multiply pointer-events-none" alt="" />
+            <img src="/spices/chili_isolated_1772801607119.png" className="spice-item spice-3 absolute z-20 top-1/2 left-1/2 w-48 h-48 md:w-72 md:h-72 object-contain mix-blend-multiply pointer-events-none" alt="" />
+            <img src="/spices/cardamom_isolated_1772801626708.png" className="spice-item spice-4 absolute z-20 top-1/2 left-1/2 w-32 h-32 md:w-48 md:h-48 object-contain mix-blend-multiply pointer-events-none" alt="" />
         </div>
     );
 };
