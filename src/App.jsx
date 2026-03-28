@@ -249,20 +249,24 @@ const Hero = ({ isPreloaderFinished }) => {
     const container = useRef(null);
 
     useEffect(() => {
+        let titleSplit;
+        let subtitleSplit;
+
         const ctx = gsap.context(() => {
-            if (!isPreloaderFinished) return;
+            titleSplit = new SplitType('.hero-title-split', { types: 'words, chars' });
+            subtitleSplit = new SplitType('.hero-subtitle-split', { types: 'lines' });
 
-            const titleSplit = new SplitType('.hero-title-split', { types: 'words, chars' });
-            const subtitleSplit = new SplitType('.hero-subtitle-split', { types: 'lines' });
-
-            // Fly-through initial state: Scaled up by 1.6x (optimized from 2.5x), focused on the bottom middle (the path)
-            // By setting transformOrigin to "bottom center", it looks like we are flying forward from the path.
-            gsap.set('.anim-hero-bg', { scale: 1, transformOrigin: '50% 100%', force3D: true });
-
+            // Always hide items immediately on mount
             gsap.set(titleSplit.chars, { y: 40, opacity: 0 });
             gsap.set(subtitleSplit.lines, { y: 20, opacity: 0 });
             gsap.set('.hero-btn', { scale: 0.9, opacity: 0 });
             gsap.set('.hero-bottom-bar', { y: 100, opacity: 0 });
+
+            // If preloader is still running, abort here so they stay hidden
+            if (!isPreloaderFinished) return;
+
+            // Fly-through initial state
+            gsap.set('.anim-hero-bg', { scale: 1, transformOrigin: '50% 100%', force3D: true });
 
             const tl = gsap.timeline({ delay: 0.1 });
 
@@ -315,7 +319,11 @@ const Hero = ({ isPreloaderFinished }) => {
 
         }, container);
 
-        return () => ctx.revert();
+        return () => {
+            ctx.revert();
+            if (titleSplit) titleSplit.revert();
+            if (subtitleSplit) subtitleSplit.revert();
+        };
     }, [isPreloaderFinished]);
 
     return (
