@@ -123,18 +123,18 @@ const Preloader = ({ onComplete }) => {
             gsap.set('.preloader-subtitle span', { yPercent: 100, opacity: 0 });
 
             const isMobile = window.innerWidth < 768;
-            const flightDistX = isMobile ? 120 : 160;
-            const flightDistY = isMobile ? 90 : 140;
+            const flightDistX = isMobile ? 160 : 320;
+            const flightDistY = isMobile ? 160 : 260;
 
             // Spices flying in towards CENTER
             tl.fromTo('.spice-1',
                 { x: -window.innerWidth / 2, y: -window.innerHeight / 2, rotation: -180, scale: 0.2, opacity: 0 },
-                { x: -flightDistX, y: -flightDistY + 20, rotation: 45, scale: 1, opacity: 1, duration: 2, ease: 'expo.out' },
+                { x: -flightDistX, y: -flightDistY, rotation: 45, scale: 1, opacity: 1, duration: 2, ease: 'expo.out' },
                 0.1
             )
                 .fromTo('.spice-2',
                     { x: window.innerWidth / 2, y: -window.innerHeight / 2, rotation: 180, scale: 0.2, opacity: 0 },
-                    { x: flightDistX + 20, y: -flightDistY + 40, rotation: -30, scale: 1, opacity: 1, duration: 2, ease: 'expo.out' },
+                    { x: flightDistX + 20, y: -flightDistY + 20, rotation: -30, scale: 1, opacity: 1, duration: 2, ease: 'expo.out' },
                     0.2
                 )
                 .fromTo('.spice-3',
@@ -144,7 +144,7 @@ const Preloader = ({ onComplete }) => {
                 )
                 .fromTo('.spice-4',
                     { x: window.innerWidth / 2, y: window.innerHeight / 2, rotation: 90, scale: 0.2, opacity: 0 },
-                    { x: flightDistX, y: flightDistY - 20, rotation: -45, scale: 1, opacity: 1, duration: 2, ease: 'expo.out' },
+                    { x: flightDistX, y: flightDistY - 10, rotation: -45, scale: 1, opacity: 1, duration: 2, ease: 'expo.out' },
                     0.4
                 );
 
