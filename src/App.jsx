@@ -114,7 +114,7 @@ const Preloader = ({ onComplete }) => {
         const ctx = gsap.context(() => {
             const tl = gsap.timeline();
 
-            const titleText = new SplitType('.preloader-title span', { types: 'chars' });
+            const titleText = new SplitType('.preloader-title span', { types: 'words, chars' });
 
             // Initial states
             gsap.set('.spice-item', { opacity: 0, xPercent: -50, yPercent: -50, z: -500 });
@@ -123,27 +123,28 @@ const Preloader = ({ onComplete }) => {
             gsap.set('.preloader-subtitle span', { yPercent: 100, opacity: 0 });
 
             const isMobile = window.innerWidth < 768;
-            const flightDist = isMobile ? 80 : 140;
+            const flightDistX = isMobile ? 120 : 160;
+            const flightDistY = isMobile ? 90 : 140;
 
             // Spices flying in towards CENTER
             tl.fromTo('.spice-1',
-                { x: -window.innerWidth / 2, y: -window.innerHeight / 2, rotation: -180, scale: 0.2, opacity: 0, z: 200 },
-                { x: -flightDist, y: -flightDist + 20, rotation: 45, scale: 1, z: 0, opacity: 1, duration: 2, ease: 'expo.out' },
+                { x: -window.innerWidth / 2, y: -window.innerHeight / 2, rotation: -180, scale: 0.2, opacity: 0 },
+                { x: -flightDistX, y: -flightDistY + 20, rotation: 45, scale: 1, opacity: 1, duration: 2, ease: 'expo.out' },
                 0.1
             )
                 .fromTo('.spice-2',
-                    { x: window.innerWidth / 2, y: -window.innerHeight / 2, rotation: 180, scale: 0.2, opacity: 0, z: 300 },
-                    { x: flightDist + 20, y: -flightDist + 40, rotation: -30, scale: 1, z: 0, opacity: 1, duration: 2, ease: 'expo.out' },
+                    { x: window.innerWidth / 2, y: -window.innerHeight / 2, rotation: 180, scale: 0.2, opacity: 0 },
+                    { x: flightDistX + 20, y: -flightDistY + 40, rotation: -30, scale: 1, opacity: 1, duration: 2, ease: 'expo.out' },
                     0.2
                 )
                 .fromTo('.spice-3',
-                    { x: -window.innerWidth / 2, y: window.innerHeight / 2, rotation: -90, scale: 0.2, opacity: 0, z: 100 },
-                    { x: -flightDist + 20, y: flightDist, rotation: 60, scale: 1, z: 0, opacity: 1, duration: 2, ease: 'expo.out' },
+                    { x: -window.innerWidth / 2, y: window.innerHeight / 2, rotation: -90, scale: 0.2, opacity: 0 },
+                    { x: -flightDistX + 20, y: flightDistY, rotation: 60, scale: 1, opacity: 1, duration: 2, ease: 'expo.out' },
                     0.3
                 )
                 .fromTo('.spice-4',
-                    { x: window.innerWidth / 2, y: window.innerHeight / 2, rotation: 90, scale: 0.2, opacity: 0, z: 400 },
-                    { x: flightDist, y: flightDist - 20, rotation: -45, scale: 1, z: 0, opacity: 1, duration: 2, ease: 'expo.out' },
+                    { x: window.innerWidth / 2, y: window.innerHeight / 2, rotation: 90, scale: 0.2, opacity: 0 },
+                    { x: flightDistX, y: flightDistY - 20, rotation: -45, scale: 1, opacity: 1, duration: 2, ease: 'expo.out' },
                     0.4
                 );
 
@@ -225,19 +226,20 @@ const Preloader = ({ onComplete }) => {
                 }}
             ></div>
 
-            <img src="/spices/star_anise_isolated_1772801555117.png" className="spice-item spice-1 absolute top-1/2 left-1/2 w-32 h-32 md:w-48 md:h-48 object-contain mix-blend-multiply pointer-events-none" alt="" />
-            <img src="/spices/cinnamon_sticks_isolated_1772801570251.png" className="spice-item spice-2 absolute top-1/2 left-1/2 w-48 h-48 md:w-64 md:h-64 object-contain mix-blend-multiply pointer-events-none" alt="" />
-            <img src="/spices/chili_isolated_1772801607119.png" className="spice-item spice-3 absolute top-1/2 left-1/2 w-32 h-32 md:w-48 md:h-48 object-contain mix-blend-multiply pointer-events-none" alt="" />
-            <img src="/spices/cardamom_isolated_1772801626708.png" className="spice-item spice-4 absolute top-1/2 left-1/2 w-24 h-24 md:w-32 md:h-32 object-contain mix-blend-multiply pointer-events-none" alt="" />
+            <img src="/spices/star_anise_isolated_1772801555117.png" className="spice-item spice-1 absolute z-0 top-1/2 left-1/2 w-32 h-32 md:w-48 md:h-48 object-contain mix-blend-multiply pointer-events-none" alt="" />
+            <img src="/spices/cinnamon_sticks_isolated_1772801570251.png" className="spice-item spice-2 absolute z-0 top-1/2 left-1/2 w-48 h-48 md:w-64 md:h-64 object-contain mix-blend-multiply pointer-events-none" alt="" />
 
             <div className="preloader-logo relative z-10 flex flex-col items-center text-center mt-[-30px]">
-                <h1 className="preloader-title font-display font-semibold text-4xl sm:text-5xl md:text-8xl lg:text-[7rem] text-charcoal tracking-wide mb-2 overflow-hidden">
+                <h1 className="preloader-title font-display font-semibold text-5xl sm:text-6xl md:text-8xl lg:text-[7rem] text-charcoal tracking-wide mb-2 overflow-hidden drop-shadow-md">
                     <span className="inline-block relative">Baramasa</span>
                 </h1>
-                <p className="preloader-subtitle font-heritage italic text-base sm:text-lg md:text-2xl text-terracotta tracking-widest overflow-hidden">
-                    <span className="inline-block">12 months of flavour.</span>
+                <p className="preloader-subtitle font-heritage italic text-lg sm:text-xl md:text-2xl text-terracotta tracking-widest overflow-hidden drop-shadow-md">
+                    <span className="inline-block relative z-10 px-4 py-1">12 months of flavour.</span>
                 </p>
             </div>
+
+            <img src="/spices/chili_isolated_1772801607119.png" className="spice-item spice-3 absolute z-20 top-1/2 left-1/2 w-32 h-32 md:w-48 md:h-48 object-contain mix-blend-multiply pointer-events-none drop-shadow-2xl" alt="" />
+            <img src="/spices/cardamom_isolated_1772801626708.png" className="spice-item spice-4 absolute z-20 top-1/2 left-1/2 w-24 h-24 md:w-32 md:h-32 object-contain mix-blend-multiply pointer-events-none drop-shadow-2xl" alt="" />
         </div>
     );
 };
@@ -250,7 +252,7 @@ const Hero = ({ isPreloaderFinished }) => {
         const ctx = gsap.context(() => {
             if (!isPreloaderFinished) return;
 
-            const titleSplit = new SplitType('.hero-title-split', { types: 'chars' });
+            const titleSplit = new SplitType('.hero-title-split', { types: 'words, chars' });
             const subtitleSplit = new SplitType('.hero-subtitle-split', { types: 'lines' });
 
             // Fly-through initial state: Scaled up by 1.6x (optimized from 2.5x), focused on the bottom middle (the path)
