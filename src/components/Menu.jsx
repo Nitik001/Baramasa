@@ -1,6 +1,60 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 
+// Extracted card component so useRef follows React's rules of hooks
+const MenuCard = ({ item }) => {
+    const cardRef = useRef(null);
+
+    const handleMouseMove = (e) => {
+        if (!cardRef.current) return;
+        if (typeof window !== 'undefined' && window.matchMedia('(pointer: coarse)').matches) return;
+        const rect = cardRef.current.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+
+        const rotateX = ((y - centerY) / centerY) * -5;
+        const rotateY = ((x - centerX) / centerX) * 5;
+
+        gsap.to(cardRef.current, {
+            rotateX,
+            rotateY,
+            transformPerspective: 1000,
+            ease: "power2.out",
+            duration: 0.4
+        });
+    };
+
+    const handleMouseLeave = () => {
+        if (typeof window !== 'undefined' && window.matchMedia('(pointer: coarse)').matches) return;
+        gsap.to(cardRef.current, {
+            rotateX: 0,
+            rotateY: 0,
+            ease: "power3.out",
+            duration: 0.7
+        });
+    };
+
+    return (
+        <div
+            ref={cardRef}
+            onMouseMove={handleMouseMove}
+            onMouseLeave={handleMouseLeave}
+            data-cursor-text="Read"
+            className="menu-card magnetic-card group relative h-[70vh] w-[85vw] md:w-[60vw] lg:w-[45vw] max-w-[700px] shrink-0 overflow-hidden cursor-none shadow-2xl will-change-transform"
+            style={{ transformStyle: 'preserve-3d' }}
+        >
+            <img
+                src={item.image}
+                alt={item.alt}
+                loading="lazy"
+                className="w-full h-full object-contain pointer-events-none"
+            />
+        </div>
+    );
+};
+
 const Menu = () => {
     const container = useRef(null);
     const trackRef = useRef(null);
@@ -43,7 +97,7 @@ const Menu = () => {
         return () => ctx.revert();
     }, [isMobile]);
 
-    // Mobile layout: vertical-scrolling grid
+    // Mobile layout: horizontal snap-scroll strip
     if (isMobile) {
         return (
             <section id="menu" className="w-full relative" style={{ backgroundColor: '#F9F6F0' }}>
@@ -67,7 +121,6 @@ const Menu = () => {
                     </div>
                 </div>
 
-                {/* Touch-scroll horizontal strip on mobile */}
                 <div className="overflow-x-auto flex gap-4 px-5 pb-10 snap-x snap-mandatory scrollbar-hide">
                     {menuPages.map((item) => (
                         <div
@@ -131,59 +184,9 @@ const Menu = () => {
                 ref={trackRef}
                 className="flex items-center h-full w-[max-content] px-[10vw] gap-[5vw] pt-20"
             >
-                {menuPages.map((item) => {
-                    const cardRef = useRef(null);
-
-                    const handleMouseMove = (e) => {
-                        if (!cardRef.current) return;
-                        if (typeof window !== 'undefined' && window.matchMedia('(pointer: coarse)').matches) return;
-                        const rect = cardRef.current.getBoundingClientRect();
-                        const x = e.clientX - rect.left;
-                        const y = e.clientY - rect.top;
-                        const centerX = rect.width / 2;
-                        const centerY = rect.height / 2;
-
-                        const rotateX = ((y - centerY) / centerY) * -5;
-                        const rotateY = ((x - centerX) / centerX) * 5;
-
-                        gsap.to(cardRef.current, {
-                            rotateX,
-                            rotateY,
-                            transformPerspective: 1000,
-                            ease: "power2.out",
-                            duration: 0.4
-                        });
-                    };
-
-                    const handleMouseLeave = () => {
-                        if (typeof window !== 'undefined' && window.matchMedia('(pointer: coarse)').matches) return;
-                        gsap.to(cardRef.current, {
-                            rotateX: 0,
-                            rotateY: 0,
-                            ease: "power3.out",
-                            duration: 0.7
-                        });
-                    };
-
-                    return (
-                        <div
-                            key={item.id}
-                            ref={cardRef}
-                            onMouseMove={handleMouseMove}
-                            onMouseLeave={handleMouseLeave}
-                            data-cursor-text="Read"
-                            className="menu-card magnetic-card group relative h-[70vh] w-[85vw] md:w-[60vw] lg:w-[45vw] max-w-[700px] shrink-0 overflow-hidden cursor-none shadow-2xl will-change-transform"
-                            style={{ transformStyle: 'preserve-3d' }}
-                        >
-                            <img
-                                src={item.image}
-                                alt={item.alt}
-                                loading="lazy"
-                                className="w-full h-full object-contain pointer-events-none"
-                            />
-                        </div>
-                    );
-                })}
+                {menuPages.map((item) => (
+                    <MenuCard key={item.id} item={item} />
+                ))}
             </div>
 
             {/* Soft Dune / Plate Curve Section Divider */}
