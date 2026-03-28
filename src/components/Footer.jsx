@@ -58,8 +58,8 @@ const Footer = () => {
                 <div className="w-full mt-24 flex flex-col md:flex-row items-center justify-between opacity-50 font-modern text-xs uppercase tracking-widest">
                     <p>© {new Date().getFullYear()} Baramasa.</p>
                     <div className="flex gap-6 mt-6 md:mt-0">
-                        <a href="#" className="hover:text-gold transition-colors" data-cursor-text="Connect">Instagram</a>
-                        <a href="#" className="hover:text-gold transition-colors" data-cursor-text="Connect">Facebook</a>
+                        <a href="https://instagram.com/baramasa.in" target="_blank" rel="noopener noreferrer" className="hover:text-gold transition-colors" data-cursor-text="Connect">Instagram</a>
+                        <a href="https://facebook.com/baramasa.in" target="_blank" rel="noopener noreferrer" className="hover:text-gold transition-colors" data-cursor-text="Connect">Facebook</a>
                     </div>
                 </div>
             </div>

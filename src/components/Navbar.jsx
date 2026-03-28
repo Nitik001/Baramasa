@@ -4,12 +4,21 @@ import { gsap } from 'gsap';
 
 const Navbar = () => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const [isScrolled, setIsScrolled] = useState(false);
     const menuRef = useRef(null);
     const linksRef = useRef([]);
 
     const toggleMenu = () => {
         setIsMobileMenuOpen(!isMobileMenuOpen);
     };
+
+    useEffect(() => {
+        const handleScroll = () => {
+            setIsScrolled(window.scrollY > 50);
+        };
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
 
     useEffect(() => {
         if (!menuRef.current) return;
@@ -27,7 +36,7 @@ const Navbar = () => {
 
     return (
         <>
-            <nav className="fixed top-0 left-0 w-full z-40 bg-gradient-to-b from-[#1A1814]/80 to-transparent flex items-center justify-between px-6 md:px-12 py-4">
+            <nav className={`fixed top-0 left-0 w-full z-40 flex items-center justify-between px-6 md:px-12 py-4 transition-all duration-300 ${isScrolled ? 'bg-[#1A1814]/90 backdrop-blur-md shadow-lg py-3' : 'bg-gradient-to-b from-[#1A1814]/80 to-transparent py-4'}`}>
                 <div className="flex items-center gap-2 text-2xl font-display font-semibold tracking-wide text-[#F9F6F0]">
                     <div className="flex items-center -mt-1">
                         <Mountain className="w-6 h-6 -mr-1 text-[#F9F6F0]" />
@@ -47,9 +56,9 @@ const Navbar = () => {
                 </div>
                 
                 <div className="flex items-center gap-4">
-                    <button data-cursor-text="Book" className="bg-[#CB4335] hover:bg-[#B03A2E] text-white text-[15px] font-medium px-6 py-2.5 rounded-md transition-colors shadow-sm hidden sm:block">
+                    <a href="#location" data-cursor-text="Book" className="bg-[#CB4335] hover:bg-[#B03A2E] text-white text-[15px] font-medium px-6 py-2.5 rounded-md transition-colors shadow-sm hidden sm:block">
                         Book a Table
-                    </button>
+                    </a>
                     <button className="md:hidden text-[#F9F6F0] p-2" onClick={toggleMenu} aria-label="Toggle Menu">
                         <MenuIcon className="w-6 h-6" />
                     </button>
@@ -68,9 +77,9 @@ const Navbar = () => {
                     <a href="#menu" onClick={toggleMenu} className="hover:text-terracotta transition-colors" ref={el => linksRef.current[1] = el}>Menu</a>
                     <a href="#location" onClick={toggleMenu} className="hover:text-terracotta transition-colors" ref={el => linksRef.current[2] = el}>Reservations</a>
                     <a href="#story" onClick={toggleMenu} className="hover:text-terracotta transition-colors" ref={el => linksRef.current[3] = el}>About Us</a>
-                    <button className="bg-[#CB4335] text-white text-lg font-modern font-medium px-8 py-3 rounded-md mt-4" ref={el => linksRef.current[4] = el} onClick={toggleMenu}>
+                    <a href="#location" className="bg-[#CB4335] text-white text-lg font-modern font-medium px-8 py-3 rounded-md mt-4 text-center" ref={el => linksRef.current[4] = el} onClick={toggleMenu}>
                         Book a Table
-                    </button>
+                    </a>
                 </div>
             </div>
         </>

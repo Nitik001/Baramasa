@@ -58,6 +58,13 @@ const Menu = () => {
                 </div>
             </div>
 
+            <div className="absolute bottom-12 md:bottom-24 left-1/2 -translate-x-1/2 z-20 hidden md:flex flex-col items-center gap-2 text-charcoal/50 tracking-widest uppercase text-xs font-modern animate-pulse pointer-events-none">
+                <span>Scroll to discover</span>
+                <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5 animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                </svg>
+            </div>
+
             <div
                 ref={trackRef}
                 className="flex items-center h-full w-[max-content] px-[10vw] gap-[5vw] pt-20"
