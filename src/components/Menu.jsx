@@ -49,7 +49,6 @@ const MenuCard = ({ item }) => {
                 src={item.image}
                 alt={item.alt}
                 loading="lazy"
-                decoding="async"
                 className="w-full h-full object-contain pointer-events-none"
             />
         </div>
@@ -72,12 +71,10 @@ const Menu = () => {
     ];
 
     useEffect(() => {
-        const mediaQuery = window.matchMedia('(max-width: 767px)');
-        const checkMobile = (e) => setIsMobile(e.matches);
-        
-        setIsMobile(mediaQuery.matches);
-        mediaQuery.addEventListener('change', checkMobile);
-        return () => mediaQuery.removeEventListener('change', checkMobile);
+        const checkMobile = () => setIsMobile(window.innerWidth < 768);
+        checkMobile();
+        window.addEventListener('resize', checkMobile);
+        return () => window.removeEventListener('resize', checkMobile);
     }, []);
 
     useEffect(() => {
@@ -134,7 +131,6 @@ const Menu = () => {
                                 src={item.image}
                                 alt={item.alt}
                                 loading="lazy"
-                                decoding="async"
                                 className="w-full h-auto object-contain"
                             />
                         </div>

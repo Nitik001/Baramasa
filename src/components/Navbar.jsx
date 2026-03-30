@@ -3,8 +3,6 @@ import { Mountain, Utensils, Menu as MenuIcon, X } from 'lucide-react';
 import { gsap } from 'gsap';
 import Magnetic from './Magnetic';
 
-const isTouchDevice = typeof window !== 'undefined' && window.matchMedia('(pointer: coarse)').matches;
-
 const Navbar = () => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [isScrolled, setIsScrolled] = useState(false);
@@ -16,17 +14,10 @@ const Navbar = () => {
     };
 
     useEffect(() => {
-        let ticking = false;
         const handleScroll = () => {
-            if (!ticking) {
-                requestAnimationFrame(() => {
-                    setIsScrolled(window.scrollY > 50);
-                    ticking = false;
-                });
-                ticking = true;
-            }
+            setIsScrolled(window.scrollY > 50);
         };
-        window.addEventListener('scroll', handleScroll, { passive: true });
+        window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
@@ -44,16 +35,9 @@ const Navbar = () => {
         }
     }, [isMobileMenuOpen]);
 
-    // On mobile: solid bg (no backdrop-blur). On desktop: glassmorphism.
-    const scrolledClass = isScrolled
-        ? (isTouchDevice
-            ? 'bg-[#1A1814]/95 shadow-lg py-3'
-            : 'bg-[#1A1814]/90 backdrop-blur-md shadow-lg py-3')
-        : 'bg-gradient-to-b from-[#1A1814]/80 to-transparent py-4';
-
     return (
         <>
-            <nav className={`fixed top-0 left-0 w-full z-40 flex items-center justify-between px-6 md:px-12 py-4 transition-all duration-300 ${scrolledClass}`}>
+            <nav className={`fixed top-0 left-0 w-full z-40 flex items-center justify-between px-6 md:px-12 py-4 transition-all duration-300 ${isScrolled ? 'bg-[#1A1814]/90 backdrop-blur-md shadow-lg py-3' : 'bg-gradient-to-b from-[#1A1814]/80 to-transparent py-4'}`}>
                 <div className="flex items-center gap-2 text-2xl font-display font-semibold tracking-wide text-[#F9F6F0]">
                     <div className="flex items-center -mt-1">
                         <Mountain className="w-6 h-6 -mr-1 text-[#F9F6F0]" />

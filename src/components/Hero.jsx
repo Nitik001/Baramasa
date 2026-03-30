@@ -6,7 +6,6 @@ import Magnetic from './Magnetic';
 const Hero = ({ isPreloaderFinished }) => {
     const container = useRef(null);
     const [timeTheme, setTimeTheme] = useState("bg-transparent");
-    const isTouch = typeof window !== 'undefined' && window.matchMedia('(pointer: coarse)').matches;
 
     useEffect(() => {
         const hour = new Date().getHours();
@@ -69,6 +68,7 @@ const Hero = ({ isPreloaderFinished }) => {
             }, 1.1);
 
             // Parallax scroll effects — desktop only (reduces mobile GPU load)
+            const isTouch = typeof window !== 'undefined' && window.matchMedia('(pointer: coarse)').matches;
             if (!isTouch) {
                 gsap.to('.anim-hero-bg', {
                     yPercent: 15,
@@ -106,19 +106,17 @@ const Hero = ({ isPreloaderFinished }) => {
     return (
         <section ref={container} className="relative w-full h-[100dvh] overflow-hidden flex flex-col justify-center">
             <div className="absolute inset-0 z-0 bg-[#E8E1CD] pointer-events-none overflow-hidden">
-                <div className={`anim-hero-bg absolute inset-0 w-full h-full bg-[url('/himalaya_hero.jpg')] bg-cover bg-center bg-no-repeat will-change-transform`} style={isTouch ? {} : { filter: 'brightness(1.18) contrast(1.12) saturate(1.2)' }}></div>
+                <div className="anim-hero-bg absolute inset-0 w-full h-full bg-[url('/himalaya_hero.jpg')] bg-cover bg-center bg-no-repeat will-change-transform" style={{ filter: 'brightness(1.18) contrast(1.12) saturate(1.2)' }}></div>
                 <div className={`absolute inset-0 transition-colors duration-1000 ${timeTheme}`}></div>
             </div>
 
-            {/* Subtle Mist Layer — hidden on touch devices for performance */}
-            {!isTouch && (
-                <div className="mist-layer absolute inset-x-0 bottom-0 h-[40vh] z-10 pointer-events-none mix-blend-screen overflow-hidden opacity-40">
-                    <div className="w-[200%] h-full flex items-end animate-[marquee_50s_linear_infinite] blur-[30px]">
-                        <div className="w-1/2 h-[120%] bg-gradient-to-t from-[#E8E1CD] via-[#E8E1CD]/50 to-transparent rounded-[100%] translate-y-1/3 scale-150"></div>
-                        <div className="w-1/2 h-[120%] bg-gradient-to-t from-[#E8E1CD] via-[#E8E1CD]/50 to-transparent rounded-[100%] translate-y-1/3 scale-150"></div>
-                    </div>
+            {/* Subtle Mist Layer — hidden on mobile for performance */}
+            <div className="mist-layer hidden sm:block absolute inset-x-0 bottom-0 h-[40vh] z-10 pointer-events-none mix-blend-screen overflow-hidden opacity-40">
+                <div className="w-[200%] h-full flex items-end animate-[marquee_50s_linear_infinite] blur-[30px]">
+                    <div className="w-1/2 h-[120%] bg-gradient-to-t from-[#E8E1CD] via-[#E8E1CD]/50 to-transparent rounded-[100%] translate-y-1/3 scale-150"></div>
+                    <div className="w-1/2 h-[120%] bg-gradient-to-t from-[#E8E1CD] via-[#E8E1CD]/50 to-transparent rounded-[100%] translate-y-1/3 scale-150"></div>
                 </div>
-            )}
+            </div>
 
             <div className="relative z-20 w-full max-w-4xl mx-auto flex flex-col items-center text-center px-5">
                 <h1

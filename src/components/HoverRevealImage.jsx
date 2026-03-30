@@ -51,8 +51,6 @@ export default function HoverRevealImage({ text, imageSrc, alt = "Hover Image" }
         });
     };
 
-    const isTouch = typeof window !== 'undefined' && window.matchMedia('(pointer: coarse)').matches;
-
     return (
         <span 
             ref={textRef}
@@ -64,20 +62,18 @@ export default function HoverRevealImage({ text, imageSrc, alt = "Hover Image" }
         >
             {text}
             
-            {/* The revealed image portal — desktop only */}
-            {!isTouch && (
-                <span 
-                    ref={imageRef}
-                    className="fixed top-0 left-0 w-[300px] h-[400px] pointer-events-none z-[100] opacity-0 invisible origin-center overflow-hidden rounded-lg shadow-2xl block"
-                    style={{ transform: 'scale(0.8)' }}
-                >
-                    <img 
-                        src={imageSrc} 
-                        alt={alt} 
-                        className="w-full h-full object-cover object-center"
-                    />
-                </span>
-            )}
+            {/* The revealed image portal */}
+            <span 
+                ref={imageRef}
+                className="fixed top-0 left-0 w-[300px] h-[400px] pointer-events-none z-[100] opacity-0 invisible origin-center overflow-hidden rounded-lg shadow-2xl block"
+                style={{ transform: 'scale(0.8)' }}
+            >
+                <img 
+                    src={imageSrc} 
+                    alt={alt} 
+                    className="w-full h-full object-cover object-center"
+                />
+            </span>
         </span>
     );
 }

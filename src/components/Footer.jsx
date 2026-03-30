@@ -8,10 +8,10 @@ const Footer = () => {
         <footer id="location" className="w-full text-parchment px-5 sm:px-6 py-16 sm:py-24 lg:py-32 rounded-t-[2rem] lg:rounded-t-[4rem] relative overflow-hidden" style={{ backgroundColor: '#1A1A1A' }}>
             <div className="max-w-7xl mx-auto flex flex-col items-center text-center relative z-10">
                 <div className="w-[200vw] overflow-hidden whitespace-nowrap mb-12 opacity-10 pointer-events-none -ml-[50vw]" aria-hidden="true">
-                    <h1 className="font-display text-[10vw] md:text-[8vw] leading-none inline-block origin-left animate-[marquee_20s_linear_infinite] will-change-transform">
+                    <h1 className="font-display text-[10vw] md:text-[8vw] leading-none inline-block origin-left animate-[marquee_20s_linear_infinite]">
                         12 MONTHS OF FLAVOUR • SENSORY HERITAGE • MOUNTAIN ROOTS •
                     </h1>
-                    <h1 className="font-display text-[10vw] md:text-[8vw] leading-none inline-block origin-left animate-[marquee_20s_linear_infinite] will-change-transform" aria-hidden="true">
+                    <h1 className="font-display text-[10vw] md:text-[8vw] leading-none inline-block origin-left animate-[marquee_20s_linear_infinite]" aria-hidden="true">
                         12 MONTHS OF FLAVOUR • SENSORY HERITAGE • MOUNTAIN ROOTS •
                     </h1>
                 </div>
