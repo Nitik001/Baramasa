@@ -5,6 +5,7 @@ import HoverRevealImage from './HoverRevealImage';
 const Philosophy = () => {
     const container = useRef(null);
     const ornamentRef = useRef(null);
+    const isTouch = typeof window !== 'undefined' && window.matchMedia('(pointer: coarse)').matches;
 
     useEffect(() => {
         const isTouch = window.matchMedia('(pointer: coarse)').matches;
@@ -58,22 +59,26 @@ const Philosophy = () => {
             className="relative w-full overflow-hidden -mt-[3px]"
             style={{ backgroundColor: '#1E1008' }}
         >
-            {/* Grain texture overlay */}
-            <div
-                className="absolute inset-0 pointer-events-none z-0 opacity-[0.04]"
-                style={{
-                    backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
-                    backgroundRepeat: 'repeat',
-                }}
-            />
+            {/* Grain texture overlay — desktop only */}
+            {!isTouch && (
+                <div
+                    className="absolute inset-0 pointer-events-none z-0 opacity-[0.04]"
+                    style={{
+                        backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
+                        backgroundRepeat: 'repeat',
+                    }}
+                />
+            )}
 
-            {/* Warm radial glow centre */}
-            <div
-                className="absolute inset-0 pointer-events-none z-0"
-                style={{
-                    background: 'radial-gradient(ellipse 80% 60% at 50% 50%, rgba(180,80,20,0.12) 0%, transparent 70%)'
-                }}
-            />
+            {/* Warm radial glow centre — desktop only */}
+            {!isTouch && (
+                <div
+                    className="absolute inset-0 pointer-events-none z-0"
+                    style={{
+                        background: 'radial-gradient(ellipse 80% 60% at 50% 50%, rgba(180,80,20,0.12) 0%, transparent 70%)'
+                    }}
+                />
+            )}
 
             {/* Content */}
             <div className="relative z-10 max-w-6xl mx-auto px-5 sm:px-6 lg:px-16 py-20 sm:py-28 lg:py-44">

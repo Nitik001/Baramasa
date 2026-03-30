@@ -143,7 +143,10 @@ export default function App() {
             )}
 
             <CustomCursor />
-            <div className="pointer-events-none fixed inset-0 z-[40] shadow-[inset_0_0_150px_rgba(26,26,26,0.15)] mix-blend-multiply transition-opacity duration-1000"></div>
+            {/* Vignette overlay — desktop only (removed on mobile to avoid GPU compositing lag) */}
+            {!isTouch && (
+                <div className="pointer-events-none fixed inset-0 z-[40] shadow-[inset_0_0_150px_rgba(26,26,26,0.15)] mix-blend-multiply"></div>
+            )}
 
             {/* Parallax spice images — HIDDEN on mobile for performance */}
             {!isTouch && (
